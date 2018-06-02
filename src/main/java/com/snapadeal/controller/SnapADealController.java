@@ -38,6 +38,12 @@ public class SnapADealController
         return "registration";
     }
 
+    @RequestMapping(value="/signUp", method = RequestMethod.POST)
+    public String signUpPOST(Model model)
+    {
+        return "redirect:/";
+    }
+
     @RequestMapping(value="/services", method = RequestMethod.GET)
     public String servicesGet(Model model)
     {
