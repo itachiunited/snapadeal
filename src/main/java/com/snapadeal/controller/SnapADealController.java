@@ -54,4 +54,10 @@ public class SnapADealController
     {
         return "service-page";
     }
+
+    @RequestMapping(value="/admin/addbusiness", method = RequestMethod.GET)
+    public String addBusiness(Model model)
+    {
+        return "sadmin/add-business";
+    }
 }
