@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class SnapADealController
 {
+    @RequestMapping(value = "/")
+    public String index() {
+        return "service-page";
+    }
+
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public String userLoginGet(Model model)
     {

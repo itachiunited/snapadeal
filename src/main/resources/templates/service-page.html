@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar" style="color:#111111;">
         <div class="container"><a class="navbar-brand logo" href="#"><img src="assets/img/snapadeallogo.jpg" style="width:250px;"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div
@@ -27,14 +28,39 @@
         </div>
         </div>
     </nav>
+
     <main class="page service-page">
         <section class="clean-block clean-services dark">
             <div class="container">
                 <div class="row" style="padding:58px;">
                     <div class="col" style="background-color:rgba(196,48,50,0);padding:0px;width:1031px;"><div class="filter">
+    <p id="demo"></p>
+
+     <script>
+    var x = document.getElementById("demo");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude +
+        "<br>Longitude: " + position.coords.longitude;
+        document.getElementById("latitude").value = position.coords.latitude;
+        document.getElementById("longitude").value = position.coords.longitude;
+    }
+    </script>
+    <form action="#">
+        <input class="searchbox" id="latitude" placeholder="Latitude" hidden></input>
+        <input class="searchbox" id="longitude" placeholder="Longitude" hidden></input>
+        <button  class="searchbox" onclick="getLocation()">Current Location</button>
+    </form>
+
     <form>
-        
-        
         <input class="searchbox" placeholder="Snap a Deal By Zipcode or City"></input>
     <br>
         <select class="btn-danger">
