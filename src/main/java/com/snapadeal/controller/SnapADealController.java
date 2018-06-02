@@ -25,7 +25,7 @@ public class SnapADealController
         return "faq";
     }
 
-    @RequestMapping(value="/contactUs", method = RequestMethod.GET)
+    @RequestMapping(value="/contactus", method = RequestMethod.GET)
     public String contactUsGet(Model model)
     {
         return "contact-us";
@@ -37,7 +37,7 @@ public class SnapADealController
         return "product-page";
     }
 
-    @RequestMapping(value="/signUp", method = RequestMethod.GET)
+    @RequestMapping(value="/signup", method = RequestMethod.GET)
     public String signUpGet(Model model)
     {
         return "registration";
