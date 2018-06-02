@@ -2,44 +2,67 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services - Brand</title>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="css/styles.min.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
-        <div class="container"><a class="navbar-brand logo" href="#">Snap-A-Deal</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse"
-                id="navcol-1">
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar" style="color:#111111;">
+        <div class="container"><a class="navbar-brand logo" href="#"><img src="img/snapadeallogo.jpg" style="width:250px;"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item" role="presentation"><a class="nav-link active" href="service-page.html"></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="faq.html">How IT WORKS</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="login.html">Login</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="registration.html">Register</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="faq.html" style="color:#c43032;">How IT WORKS</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="contact-us.html" style="color:#c43032;">Contact Us</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="login.html" style="color:#c43032;">Login</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="registration.html" style="color:#c43032;">Register</a></li>
                 </ul>
-            </div>
+        </div>
         </div>
     </nav>
     <main class="page service-page">
         <section class="clean-block clean-services dark">
             <div class="container">
-                <div class="block-heading" style="font-size:10px;">
-                    <h2 class="text-info">Deals Waiting to be Snapped&nbsp;</h2>
+                <div class="row" style="padding:58px;">
+                    <div class="col" style="background-color:rgba(196,48,50,0);padding:0px;width:1031px;"><div class="filter">
+    <form>
+        <input class="searchbox" placeholder="Snap a Deal By Zipcode or City"></input>
+    <br>
+        <select>
+             <option value="">Type</option>
+        </select>
+    <select>
+             <option value="">Colours</option>
+        </select>
+    <select>
+             <option value="">Size</option>
+        </select>
+    <select>
+             <option value="">Price</option>
+        </select>
+    <select>
+             <option value="">Delivery</option>
+        </select>
+    
+    
+    </form>
+</div></div>
                 </div>
-                <div class="row">
+                <div class="row" style="margin:-47px;padding:0px;">
                     <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse">
-                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="img/scenery/image5.jpg">
+                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="img/scenery/image6.jpg">
                             <div class="card-body">
-                                <h4 class="card-title">Lorem Ipsum</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                                <h4 class="card-title" style="color:#c43032;">32" LG LED TV</h4>
+                                <p class="card-text" style="color:#c43032;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
                             </div>
-                            <div><button class="btn btn-outline-primary btn-sm" type="button">Learn More</button></div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button" style="background-color:#c43032;color:rgba(248,247,247,0.76);"><strong>Reserve Now</strong></button></div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse">
@@ -48,7 +71,25 @@
                                 <h4 class="card-title">Lorem Ipsum</h4>
                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
                             </div>
-                            <div><button class="btn btn-outline-primary btn-sm" type="button">Learn More</button></div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button">Reserve Now</button></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse">
+                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="img/scenery/image6.jpg">
+                            <div class="card-body">
+                                <h4 class="card-title" style="color:#c43032;">32" LG LED TV</h4>
+                                <p class="card-text" style="color:#c43032;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                            </div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button" style="background-color:#c43032;color:rgba(248,247,247,0.76);"><strong>Reserve Now</strong></button></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse">
+                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="img/scenery/image6.jpg">
+                            <div class="card-body">
+                                <h4 class="card-title" style="color:#c43032;">32" LG LED TV</h4>
+                                <p class="card-text" style="color:#c43032;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                            </div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button" style="background-color:#c43032;color:rgba(248,247,247,0.76);"><strong>Reserve Now</strong></button></div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse">
@@ -57,54 +98,23 @@
                                 <h4 class="card-title">Lorem Ipsum</h4>
                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
                             </div>
-                            <div><button class="btn btn-outline-primary btn-sm" type="button">Learn More</button></div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button">Reserve Now</button></div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse">
-                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="img/scenery/image5.jpg">
+                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="img/scenery/image6.jpg">
                             <div class="card-body">
-                                <h4 class="card-title">Lorem Ipsum</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                                <h4 class="card-title" style="color:#c43032;">32" LG LED TV</h4>
+                                <p class="card-text" style="color:#c43032;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
                             </div>
-                            <div><button class="btn btn-outline-primary btn-sm" type="button">Learn More</button></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse">
-                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="img/scenery/image5.jpg">
-                            <div class="card-body">
-                                <h4 class="card-title">Lorem Ipsum</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
-                            </div>
-                            <div><button class="btn btn-outline-primary btn-sm" type="button">Learn More</button></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse">
-                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="img/scenery/image5.jpg">
-                            <div class="card-body">
-                                <h4 class="card-title">Lorem Ipsum</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
-                            </div>
-                            <div><button class="btn btn-outline-primary btn-sm" type="button">Learn More</button></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse">
-                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="img/scenery/image5.jpg">
-                            <div class="card-body">
-                                <h4 class="card-title">Lorem Ipsum</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
-                            </div>
-                            <div><button class="btn btn-outline-primary btn-sm" type="button">Learn More</button></div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button" style="background-color:#c43032;color:rgba(248,247,247,0.76);"><strong>Reserve Now</strong></button></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-    <footer class="page-footer dark" style="height:120px;">
-        <div class="footer-copyright">
-            <p>© 2018 Snap-A-Deal.Online</p>
-        </div>
-    </footer>
+    <footer class="page-footer dark" style="height:0px;background-color:#c43032;"></footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.min.js"></script>
