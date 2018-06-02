@@ -3,6 +3,7 @@ package com.snapadeal.entity;
 import com.snapadeal.entity.enums.Category;
 import lombok.Data;
 import lombok.Generated;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import javax.persistence.EnumType;
@@ -23,7 +24,7 @@ public class BusinessProfile {
 
     private String password;
 
-    private String location;
+    private GeoJsonPoint location;
 
     private String phoneNumber;
 
@@ -176,11 +177,11 @@ public class BusinessProfile {
         this.password = password;
     }
 
-    public String getLocation() {
+    public GeoJsonPoint getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(GeoJsonPoint location) {
         this.location = location;
     }
 
