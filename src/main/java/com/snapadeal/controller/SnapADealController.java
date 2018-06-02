@@ -1,9 +1,15 @@
 package com.snapadeal.controller;
 
+import com.snapadeal.entity.BusinessProfile;
+import com.snapadeal.entity.enums.Category;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.validation.Valid;
 
 @Controller
 public class SnapADealController
@@ -25,7 +31,7 @@ public class SnapADealController
         return "faq";
     }
 
-    @RequestMapping(value="/contactus", method = RequestMethod.GET)
+    @RequestMapping(value="/contact-us", method = RequestMethod.GET)
     public String contactUsGet(Model model)
     {
         return "contact-us";
@@ -43,7 +49,7 @@ public class SnapADealController
         return "registration";
     }
 
-    @RequestMapping(value="/signUp", method = RequestMethod.POST)
+    @RequestMapping(value="/signup", method = RequestMethod.POST)
     public String signUpPOST(Model model)
     {
         return "redirect:/";
@@ -55,9 +61,17 @@ public class SnapADealController
         return "service-page";
     }
 
-    @RequestMapping(value="/admin/addbusiness", method = RequestMethod.GET)
+    @RequestMapping(value="/admin/add-business", method = RequestMethod.GET)
     public String addBusiness(Model model)
     {
+        model.addAttribute("categories", Category.values());
+        return "sadmin/add-business";
+    }
+
+    @RequestMapping(value="/admin/add-business", method = RequestMethod.POST)
+    public String addBusinessPOST(@Valid @ModelAttribute("businessProfile") BusinessProfile businessProfile, BindingResult result, Model model)
+    {
+        System.out.println("Inside POST"+businessProfile.toString());
         return "sadmin/add-business";
     }
 }

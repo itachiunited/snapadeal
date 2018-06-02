@@ -18,9 +18,9 @@ public class BusinessProfile {
 
     private String login;
 
-    private String firstName;
+    private String name;
 
-    private String lastName;
+    private String businessOwnerName;
 
     private String password;
 
@@ -38,6 +38,37 @@ public class BusinessProfile {
 
     private Address storeAddress;
 
+    private String website;
+
+    @Override
+    public String toString() {
+        return "BusinessProfile{" +
+                "id='" + id + '\'' +
+                ", login='" + login + '\'' +
+                ", name='" + name + '\'' +
+                ", businessOwnerName='" + businessOwnerName + '\'' +
+                ", password='" + password + '\'' +
+                ", location=" + location +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", description='" + description + '\'' +
+                ", logo='" + logo + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", storeHours='" + storeHours + '\'' +
+                ", storeAddress=" + storeAddress +
+                ", website='" + website + '\'' +
+                ", category=" + category +
+                ", productList=" + productList +
+                '}';
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
     public String getStoreHours() {
         return storeHours;
     }
@@ -52,26 +83,6 @@ public class BusinessProfile {
 
     public void setStoreAddress(Address mailingAddress) {
         this.storeAddress = storeAddress;
-    }
-
-    @Override
-    public String toString() {
-        return "BusinessProfile{" +
-                "id='" + id + '\'' +
-                ", login='" + login + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", password='" + password + '\'' +
-                ", location='" + location + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", description='" + description + '\'' +
-                ", logo='" + logo + '\'' +
-                ", displayName='" + displayName + '\'' +
-                ", storeHours='" + storeHours + '\'' +
-                ", storeAddress=" + storeAddress +
-                ", category=" + category +
-                ", productList=" + productList +
-                '}';
     }
 
     public Category getCategory() {
@@ -91,8 +102,8 @@ public class BusinessProfile {
     public BusinessProfile() {
         this.id = id;
         this.login = login;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.businessOwnerName = businessOwnerName;
+        this.name = name;
         this.password = password;
         this.location = location;
         this.phoneNumber = phoneNumber;
@@ -103,6 +114,7 @@ public class BusinessProfile {
         this.category = category;
         this.storeHours = storeHours;
         this.storeAddress = storeAddress;
+        this.website = website;
     }
 
     public String getDescription() {
@@ -153,20 +165,20 @@ public class BusinessProfile {
         this.login = login;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getBusinessOwnerName() {
+        return businessOwnerName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setBusinessOwnerName(String businessOwnerName) {
+        this.businessOwnerName = businessOwnerName;
     }
 
     public String getPassword() {
