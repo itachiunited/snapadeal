@@ -135,11 +135,7 @@ public class Product {
     }
 
     public String getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(String discount) {
-        this.discount = discount;
+        return ((listPrice - salePrice)/listPrice)*100 + "%";
     }
 
     public List<String> getTags() {
