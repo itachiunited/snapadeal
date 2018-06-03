@@ -7,6 +7,7 @@ import com.snapadeal.services.SnapADealServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.snapadeal.services.SnapADealServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -79,9 +81,9 @@ public class SnapADealController
     }
 
     @RequestMapping(value="/admin/add-business", method = RequestMethod.POST)
-    public String addBusinessPOST(@Valid @ModelAttribute("businessProfile") BusinessProfile businessProfile, BindingResult result, Model model)
+    public String addBusinessPOST(@Valid @ModelAttribute("businessProfile") BusinessProfile businessProfile, BindingResult result,
+                                  Model model, HttpServletRequest pRequest)
     {
-        System.out.println("SnapADealController:addBusinessPOST() - Creating Business Profile For --> "+businessProfile);
 
         if (result.hasErrors()) {
             model.addAttribute("error", true);
@@ -91,7 +93,14 @@ public class SnapADealController
             return "sadmin/add-business";
         }
 
+        if(pRequest.getParameter("latitude") != null && pRequest.getParameter("longitude") != null && businessProfile != null){
+            double lat = Double.parseDouble(pRequest.getParameter("latitude"));
+            double lon = Double.parseDouble(pRequest.getParameter("longitude"));
+            businessProfile.setLocation(new GeoJsonPoint(lat, lon));
+        }
+
         try {
+            System.out.println("SnapADealController:addBusinessPOST() - Creating Business Profile For --> "+businessProfile);
             snapADealServices.createBusinessAccount(businessProfile);
         } catch (BusinessProfileException e) {
             e.printStackTrace();
