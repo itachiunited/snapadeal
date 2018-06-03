@@ -16,12 +16,15 @@ public class Address {
 
     private String zip;
 
+    private String country;
+
     public Address() {
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
         this.city = city;
         this.state = state;
         this.zip = zip;
+        this.country = country;
     }
 
     public String getAddressLine1() {
@@ -64,6 +67,10 @@ public class Address {
         this.zip = zip;
     }
 
+    public String getCountry() { return country; }
+
+    public void setCountry(String country) { this.country = country; }
+
     @Override
     public String toString() {
         return "MailingAddress{" +
@@ -72,6 +79,7 @@ public class Address {
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
                 ", zip='" + zip + '\'' +
+                ", country='" + country + '\'' +
                 '}';
     }
 }

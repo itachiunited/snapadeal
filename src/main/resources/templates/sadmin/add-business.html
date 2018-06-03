@@ -80,7 +80,18 @@
                     </div>
                     <div class="form-group">
                         <label>Address</label>
-                        <input class="form-control" name="storeAddress1" id="storeAddress1" type="text">
+                        <input class="form-control" name="address" id="address" type="text">
+
+                        <input class="form-control" id="street_number" type="hidden">
+                        <input class="form-control" id="route" type="hidden">
+                        <input class="form-control" name="storeAddress.addressLine1" id="addressLine1" type="hidden">
+                        <input class="form-control" name="storeAddress.city" id="locality" type="hidden">
+                        <input class="form-control" name="storeAddress.state" id="administrative_area_level_1" type="hidden">
+                        <input class="form-control" name="storeAddress.zip" id="postal_code" type="hidden">
+                        <input class="form-control" name="storeAddress.country" id="country" type="hidden">
+
+                        <input class="form-control" name="latitude" id="latitude" type="hidden">
+                        <input class="form-control" name="longitude" id="longitude" type="hidden">
                     </div>
                     <div class="form-group">
                         <label>Store Hours</label>
@@ -103,6 +114,9 @@
     <script src="/assets/js/script.min.js"></script>
     <script src="/assets/inputmask/jquery.inputmask.bundle.js"></script>
     <script src="/assets/inputmask/inputmask.binding.js"></script>
+    <script src="/assets/js/snapadeal.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQCzyCHxwrZfWAjTMRz0yA1xdfzryUXKs&libraries=places&callback=initAutocomplete"
+            async defer></script>
 </body>
 
 </html>

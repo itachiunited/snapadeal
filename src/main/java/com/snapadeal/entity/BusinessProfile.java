@@ -97,6 +97,9 @@ public class BusinessProfile {
     }
 
     public Address getStoreAddress() {
+        if(storeAddress == null){
+            storeAddress = new Address();
+        }
         return storeAddress;
     }
 
