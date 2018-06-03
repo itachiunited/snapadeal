@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Brand</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.min.css">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar" style="color:#111111;">
+        <div class="container"><a class="navbar-brand logo" href="#"><img src="/assets/img/snapadeallogo.jpg" style="width:250px;"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="faq.html" style="color:#c43032;">ADD BUSINESS</a></li>
+                </ul>
+        </div>
+        </div>
+    </nav>
+    <main class="page contact-us-page">
+        <section class="clean-block clean-form dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Add Business</h2>
+                </div>
+                <form th:action="@{/admin/add-business}" th:object="${businessProfile}" action="/admin/add-business" method="post">
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select class="form-control" name="category" id="category">
+                            <option value="default">Choose Category</option>
+                            <option th:each="category : ${categories}" th:value="${category.key}" th:text="${category.value}" th:selected="${category.key == businessProfile.category}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Business Name</label>
+                        <input class="form-control" name="name" id="name" type="text" th:value="${businessProfile.name}">
+                    </div>
+                    <div class="form-group">
+                        <label>Owner Name</label>
+                        <input class="form-control" name="businessOwnerName" id="businessOwnerName" th:value="${businessProfile.businessOwnerName}" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input class="form-control" name="login" id="login" type="text" th:value="${businessProfile.login}">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input class="form-control" name="phoneNumber" id="phoneNumber" th:value="${businessProfile.phoneNumber}" type="text" data-inputmask="'mask': '(999) 999-9999'" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input class="form-control" name="password" id="password" type="password">
+                    </div>
+                    <div class="form-group">
+                        <label>Business Description</label>
+                        <textarea class="form-control" name="description" id="description" th:inline="text">[[${businessProfile.description?:''}]]</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input class="form-control" name="address" id="address" type="text">
+
+                        <input class="form-control" id="street_number" type="hidden">
+                        <input class="form-control" id="route" type="hidden">
+                        <input class="form-control" name="storeAddress.addressLine1" id="addressLine1" type="hidden">
+                        <input class="form-control" name="storeAddress.city" id="locality" type="hidden">
+                        <input class="form-control" name="storeAddress.state" id="administrative_area_level_1" type="hidden">
+                        <input class="form-control" name="storeAddress.zip" id="postal_code" type="hidden">
+                        <input class="form-control" name="storeAddress.country" id="country" type="hidden">
+
+                        <input class="form-control" name="latitude" id="latitude" type="hidden">
+                        <input class="form-control" name="longitude" id="longitude" type="hidden">
+                    </div>
+                    <div class="form-group">
+                        <label>Store Hours</label>
+                        <textarea class="form-control" name="storeHours" id="storeHours" th:inline="text">[[${businessProfile.storeHours?:''}]]</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Website</label>
+                        <input class="form-control" name="website" id="website" type="text" th:value="${businessProfile.website}">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">Send</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer class="page-footer dark" style="height:0px;background-color:#c43032;"></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/script.min.js"></script>
+    <script src="/assets/inputmask/jquery.inputmask.bundle.js"></script>
+    <script src="/assets/inputmask/inputmask.binding.js"></script>
+    <script src="/assets/js/snapadeal.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQCzyCHxwrZfWAjTMRz0yA1xdfzryUXKs&libraries=places&callback=initAutocomplete"
+            async defer></script>
+</body>
+
+</html>

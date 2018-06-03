@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snap-A-Deal</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="assets/css/styles.min.css">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar" style="color:#111111;">
+        <div class="container"><a class="navbar-brand logo" href="#"><img src="assets/img/snapadeallogo.jpg" style="width:250px;"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="service-page.html"></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="faq.html" style="color:#c43032;">How IT WORKS</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="contact-us.html" style="color:#c43032;">Contact Us</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="login.html" style="color:#c43032;"></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="registration.html" style="color:#c43032;">Register</a></li>
+                </ul>
+        </div>
+        </div>
+    </nav>
+
+    <main class="page service-page">
+        <section class="clean-block clean-services dark">
+            <div class="container">
+                <div class="row" style="padding:58px;">
+                    <div class="col" style="background-color:rgba(196,48,50,0);padding:0px;width:1031px;"><div class="filter">
+    <p id="demo"></p>
+
+     <script>
+     window.onload = function() {
+     getLocation();
+    };
+    var x = document.getElementById("demo");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude +
+        "<br>Longitude: " + position.coords.longitude;
+        document.getElementById("latitude").value = position.coords.latitude;
+        document.getElementById("longitude").value = position.coords.longitude;
+       // document.locationForm.submit();
+    }
+    </script>
+    <form th:action="@{/}" method="post" id="locationForm" name="locationForm">
+        <input class="searchbox" id="latitude" placeholder="Latitude" hidden></input>
+        <input class="searchbox" id="longitude" placeholder="Longitude" hidden></input>
+        <button  class="searchbox" hidden>Current Location</button>
+    </form>
+
+    <form>
+        <input class="searchbox" placeholder="Snap a Deal By Zipcode or City"></input>
+    <br>
+        <select class="btn-danger">
+             <option value="">Type</option>
+        </select>
+    <select class="btn-danger" >
+             <option value="">Colours</option>
+        </select>
+    <select class="btn-danger" >
+             <option value="">Size</option>
+        </select>
+    <select class="btn-danger" >
+             <option value="">Price</option>
+        </select>
+    <select class="btn-danger" >
+             <option value="">Delivery</option>
+        </select>
+    
+    
+    </form>
+</div></div>
+                </div>
+                <div class="row" style="margin:-47px;padding:0px;">
+                    <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse">
+                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="assets/img/scenery/image6.jpg">
+                            <div class="card-body">
+                                <h4 class="card-title" style="color:#c43032;">32" LG LED TV</h4>
+                                <p class="card-text" style="color:#c43032;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                            </div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button" style="background-color:#c43032;color:rgba(248,247,247,0.76);"><strong>Reserve Now</strong></button></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse">
+                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="assets/img/scenery/image5.jpg">
+                            <div class="card-body">
+                                <h4 class="card-title">Lorem Ipsum</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                            </div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button">Reserve Now</button></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse">
+                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="assets/img/scenery/image6.jpg">
+                            <div class="card-body">
+                                <h4 class="card-title" style="color:#c43032;">32" LG LED TV</h4>
+                                <p class="card-text" style="color:#c43032;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                            </div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button" style="background-color:#c43032;color:rgba(248,247,247,0.76);"><strong>Reserve Now</strong></button></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse">
+                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="assets/img/scenery/image6.jpg">
+                            <div class="card-body">
+                                <h4 class="card-title" style="color:#c43032;">32" LG LED TV</h4>
+                                <p class="card-text" style="color:#c43032;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                            </div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button" style="background-color:#c43032;color:rgba(248,247,247,0.76);"><strong>Reserve Now</strong></button></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse">
+                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="assets/img/scenery/image5.jpg">
+                            <div class="card-body">
+                                <h4 class="card-title">Lorem Ipsum</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                            </div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button">Reserve Now</button></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse">
+                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="assets/img/scenery/image6.jpg">
+                            <div class="card-body">
+                                <h4 class="card-title" style="color:#c43032;">32" LG LED TV</h4>
+                                <p class="card-text" style="color:#c43032;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                            </div>
+                            <div><button class="btn btn-outline-primary btn-sm" type="button" style="background-color:#c43032;color:rgba(248,247,247,0.76);"><strong>Reserve Now</strong></button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="page-footer dark" style="height:0px;background-color:#c43032;"></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/script.min.js"></script>
+</body>
+
+</html>

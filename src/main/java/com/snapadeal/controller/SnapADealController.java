@@ -66,7 +66,7 @@ public class SnapADealController
         return "redirect:/";
     }
 
-    @RequestMapping(value="/services", method = RequestMethod.GET)
+    @RequestMapping(value="/", method = RequestMethod.GET)
     public String servicesGet(Model model)
     {
         return "service-page";
