@@ -51,7 +51,9 @@
         <section class="clean-block clean-services dark">
             <div class="container">
                 <div class="row" style="padding:58px;">
-                    <div class="col" style="background-color:rgba(196,48,50,0);padding:0px;width:1031px;"><div class="filter">
+                    <div class="col" style="background-color:rgba(196,48,50,0);padding:0px;width:1031px;"><div>
+
+
     <p id="demo"></p>
 
      <script>
@@ -82,27 +84,47 @@
         <button  class="searchbox" hidden>Current Location</button>
     </form>
 
-    <form>
-        <input class="searchbox" placeholder="Snap a Deal By Zipcode or City"></input>
-    <br>
-        <select class="btn-danger">
-             <option value="">Type</option>
-        </select>
-    <select class="btn-danger" >
-             <option value="">Colours</option>
-        </select>
-    <select class="btn-danger" >
-             <option value="">Size</option>
-        </select>
-    <select class="btn-danger" >
-             <option value="">Price</option>
-        </select>
-    <select class="btn-danger" >
-             <option value="">Delivery</option>
-        </select>
-    
-    
-    </form>
+                        <div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Current Location</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Snap A Deal by Zip or City ..." aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+
+
+                            <script>
+     window.onload = function() {
+     getLocation();
+    };
+    var x = document.getElementById("demo");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude +
+        "<br>Longitude: " + position.coords.longitude;
+        document.getElementById("latitude").value = position.coords.latitude;
+        document.getElementById("longitude").value = position.coords.longitude;
+       // document.locationForm.submit();
+    }
+    </script>
+
+
+
+                                <div>
+                                <button class="btn-danger">ALL</button>
+                                <button class="btn-danger" th:each="category : ${categories}"  th:text="${category.value}">button</button>
+                                </div>
+
+                        </div>
 </div></div>
                 </div>
                 <div class="row" style="margin:-47px;padding:0px;">

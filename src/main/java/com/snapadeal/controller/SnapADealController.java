@@ -5,6 +5,7 @@ import com.snapadeal.entity.enums.Category;
 import com.snapadeal.exceptions.BusinessProfileException;
 import com.snapadeal.form.LoginForm;
 import com.snapadeal.services.SnapADealServices;
+import org.bouncycastle.ocsp.Req;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.snapadeal.services.SnapADealServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,10 @@ public class SnapADealController
     @Autowired
     private SnapADealServices snapADealServices;
 
-    @RequestMapping(value = "/")
-    public String index() {
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index(Model model) {
         snapADealServices.findLocationByMiles ();
+        model.addAttribute("categories", Category.values());
         return "service-page";
     }
 
@@ -67,11 +69,6 @@ public class SnapADealController
         return "redirect:/";
     }
 
-    @RequestMapping(value="/", method = RequestMethod.GET)
-    public String servicesGet(Model model)
-    {
-        return "service-page";
-    }
 
     @RequestMapping(value="/admin/add-business", method = RequestMethod.GET)
     public String addBusiness(Model model)
