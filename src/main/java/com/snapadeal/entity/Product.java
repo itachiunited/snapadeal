@@ -40,6 +40,8 @@ public class Product {
 
     private long numberOfViews;
 
+    private String publicImageId;
+
     @DBRef
     @JsonBackReference
     private BusinessProfile businessProfile;
@@ -60,6 +62,37 @@ public class Product {
         this.endTime = endTime;
         this.numberOfViews = numberOfViews;
         this.businessProfile = businessProfile;
+        this.publicImageId = publicImageId;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", description='" + description + '\'' +
+                ", primaryImage='" + primaryImage + '\'' +
+                ", additionalImages=" + additionalImages +
+                ", totalQuantity=" + totalQuantity +
+                ", maxQuantityPerCustomer=" + maxQuantityPerCustomer +
+                ", listPrice=" + listPrice +
+                ", salePrice=" + salePrice +
+                ", discount='" + discount + '\'' +
+                ", tags=" + tags +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", numberOfViews=" + numberOfViews +
+                ", publicImageId='" + publicImageId + '\'' +
+                ", businessProfile=" + businessProfile +
+                '}';
+    }
+
+    public String getPublicImageId() {
+        return publicImageId;
+    }
+
+    public void setPublicImageId(String publicImageId) {
+        this.publicImageId = publicImageId;
     }
 
     public String getId() {
@@ -178,24 +211,4 @@ public class Product {
         this.businessProfile = businessProfile;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id='" + id + '\'' +
-                ", displayName='" + displayName + '\'' +
-                ", description='" + description + '\'' +
-                ", primaryImage='" + primaryImage + '\'' +
-                ", additionalImages=" + additionalImages +
-                ", totalQuantity=" + totalQuantity +
-                ", maxQuantityPerCustomer=" + maxQuantityPerCustomer +
-                ", listPrice=" + listPrice +
-                ", salePrice=" + salePrice +
-                ", discount='" + discount + '\'' +
-                ", tags=" + tags +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", numberOfViews=" + numberOfViews +
-                ", businessProfile=" + businessProfile +
-                '}';
-    }
 }
