@@ -3,6 +3,7 @@ package com.snapadeal.controller;
 import com.snapadeal.entity.BusinessProfile;
 import com.snapadeal.entity.enums.Category;
 import com.snapadeal.exceptions.BusinessProfileException;
+import com.snapadeal.form.LoginForm;
 import com.snapadeal.services.SnapADealServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.snapadeal.services.SnapADealServices;
@@ -84,6 +85,7 @@ public class SnapADealController
     public String addBusinessPOST(@Valid @ModelAttribute("businessProfile") BusinessProfile businessProfile, BindingResult result,
                                   Model model, HttpServletRequest pRequest)
     {
+        System.out.println("SnapADealController:addBusinessPOST() - Creating Business Profile For --> "+businessProfile.getLogin());
 
         if (result.hasErrors()) {
             model.addAttribute("error", true);
@@ -100,13 +102,58 @@ public class SnapADealController
         }
 
         try {
-            System.out.println("SnapADealController:addBusinessPOST() - Creating Business Profile For --> "+businessProfile);
             snapADealServices.createBusinessAccount(businessProfile);
         } catch (BusinessProfileException e) {
             e.printStackTrace();
+            model.addAttribute("error", true);
+            model.addAttribute("businessProfile",businessProfile);
+            model.addAttribute("categories", Category.values());
+            return "sadmin/add-business";
         }
 
-        return "sadmin/add-business";
+        return "redirect:/admin/add-products";
+    }
+
+    @RequestMapping(value="/admin/business-login", method = RequestMethod.GET)
+    public String businessLoginGET(Model model)
+    {
+        model.addAttribute("categories", Category.values());
+        model.addAttribute("loginForm",new LoginForm());
+        return "sadmin/business-login";
+    }
+
+    @RequestMapping(value="/admin/business-login", method = RequestMethod.POST)
+    public String businessLoginPOST(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult result,
+                                    Model model, HttpServletRequest pRequest)
+    {
+        System.out.println("SnapADealController:addBusinessPOST() - Creating Business Profile For --> "+loginForm.getLogin());
+
+        if (result.hasErrors()) {
+            model.addAttribute("error", true);
+            System.out.println("SnapADealController:addBusinessPOST() - Error --> "+result.toString());
+            model.addAttribute("loginForm",loginForm);
+            model.addAttribute("categories", Category.values());
+            return "sadmin/business-login";
+        }
+
+        try {
+            snapADealServices.loginBusinessAccount(loginForm);
+        } catch (BusinessProfileException e) {
+            e.printStackTrace();
+            model.addAttribute("error", true);
+            model.addAttribute("loginForm",loginForm);
+            model.addAttribute("categories", Category.values());
+            return "sadmin/business-login";
+        }
+
+        return "redirect:/admin/add-products";
+    }
+
+    @RequestMapping(value="/admin/add-products", method = RequestMethod.GET)
+    public String addProductsGET(Model model)
+    {
+        model.addAttribute("categories", Category.values());
+        return "sadmin/add-products";
     }
 
     public SnapADealServices getSnapADealServices ( ) {

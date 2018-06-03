@@ -1,6 +1,7 @@
 package com.snapadeal.adapters;
 
 import com.snapadeal.constants.SnapADealConstants;
+import com.snapadeal.entity.BusinessProfile;
 import com.snapadeal.services.SnapADealServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,13 @@ public class ViewInterceptorAdapter extends HandlerInterceptorAdapter implements
         if(null!=session) {
             modelAndView.addObject ( "latitude" , session.getAttribute ( "latitude" ) );
             modelAndView.addObject ( "longitude" , session.getAttribute ( "longitude" ) );
+        }
+
+        if(null!=session.getAttribute(USER_TYPE_KEY) && BUSINESSUSER.equalsIgnoreCase((String)session.getAttribute(USER_TYPE_KEY)))
+        {
+            System.out.println("ViewInterceptorAdapter : postHandle() : Current User Type --> BUSINESSUSER");
+            BusinessProfile businessProfile = snapADealServices.getCurrentBusinessUser(false);
+            modelAndView.addObject("currentUser",businessProfile);
         }
     }
 }
