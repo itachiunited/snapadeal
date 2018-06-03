@@ -1,14 +1,18 @@
 package com.snapadeal.entity;
 
 import com.snapadeal.entity.enums.Category;
+import com.snapadeal.validators.ValidPassword;
 import lombok.Data;
 import lombok.Generated;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
@@ -16,23 +20,28 @@ public class BusinessProfile {
 
     private @Id @Generated String id;
 
+    @Valid
+    @NotNull(message = "Login must not be null")
     private String login;
 
+    @NotNull(message = "Business Name must not be null")
     private String name;
 
+    @NotNull(message = "Owner Name must not be null")
     private String businessOwnerName;
 
+    @ValidPassword
     private String password;
 
     private GeoJsonPoint location;
 
+    @NotNull(message = "Phone Number must not be null")
     private String phoneNumber;
 
+    @NotNull(message = "Description must not be null")
     private String description;
 
     private String logo;
-
-    private String displayName;
 
     private String storeHours;
 
@@ -52,14 +61,24 @@ public class BusinessProfile {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", description='" + description + '\'' +
                 ", logo='" + logo + '\'' +
-                ", displayName='" + displayName + '\'' +
                 ", storeHours='" + storeHours + '\'' +
                 ", storeAddress=" + storeAddress +
                 ", website='" + website + '\'' +
+                ", publicImageId='" + publicImageId + '\'' +
                 ", category=" + category +
                 ", productList=" + productList +
                 '}';
     }
+
+    public String getPublicImageId() {
+        return publicImageId;
+    }
+
+    public void setPublicImageId(String publicImageId) {
+        this.publicImageId = publicImageId;
+    }
+
+    private String publicImageId;
 
     public String getWebsite() {
         return website;
@@ -109,12 +128,12 @@ public class BusinessProfile {
         this.phoneNumber = phoneNumber;
         this.description = description;
         this.logo = logo;
-        this.displayName = displayName;
         this.productList = productList;
         this.category = category;
         this.storeHours = storeHours;
         this.storeAddress = storeAddress;
         this.website = website;
+        this.publicImageId = publicImageId;
     }
 
     public String getDescription() {
@@ -131,14 +150,6 @@ public class BusinessProfile {
 
     public void setLogo(String logo) {
         this.logo = logo;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
     }
 
     public List<Product> getProductList() {
