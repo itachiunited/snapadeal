@@ -1,9 +1,11 @@
 package com.snapadeal.controller;
 
 import com.snapadeal.entity.BusinessProfile;
+import com.snapadeal.entity.Product;
 import com.snapadeal.entity.enums.Category;
 import com.snapadeal.exceptions.BusinessProfileException;
 import com.snapadeal.form.LoginForm;
+import com.snapadeal.services.ProductListService;
 import com.snapadeal.services.SnapADealServices;
 import org.bouncycastle.ocsp.Req;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class SnapADealController
@@ -26,10 +29,18 @@ public class SnapADealController
     @Autowired
     private SnapADealServices snapADealServices;
 
+
+
+    @Autowired
+    private ProductListService productListService;
+
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
         snapADealServices.findLocationByMiles ();
         model.addAttribute("categories", Category.values());
+        List<Product> list = productListService.getProductsToDisplay();
+        model.addAttribute("products",productListService.getProductsToDisplay());
         return "service-page";
     }
 
@@ -159,5 +170,13 @@ public class SnapADealController
 
     public void setSnapADealServices ( SnapADealServices snapADealServices ) {
         this.snapADealServices = snapADealServices;
+    }
+
+    public ProductListService getProductListService() {
+        return productListService;
+    }
+
+    public void setProductListService(ProductListService productListService) {
+        this.productListService = productListService;
     }
 }
