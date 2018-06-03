@@ -2,6 +2,8 @@ package com.snapadeal.controller;
 
 import com.snapadeal.entity.BusinessProfile;
 import com.snapadeal.entity.enums.Category;
+import com.snapadeal.services.SnapADealServices;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,8 +16,12 @@ import javax.validation.Valid;
 @Controller
 public class SnapADealController
 {
+    @Autowired
+    private SnapADealServices snapADealServices;
+
     @RequestMapping(value = "/")
     public String index() {
+        snapADealServices.findLocationByMiles ();
         return "service-page";
     }
 
@@ -73,5 +79,13 @@ public class SnapADealController
     {
         System.out.println("Inside POST"+businessProfile.toString());
         return "sadmin/add-business";
+    }
+
+    public SnapADealServices getSnapADealServices ( ) {
+        return snapADealServices;
+    }
+
+    public void setSnapADealServices ( SnapADealServices snapADealServices ) {
+        this.snapADealServices = snapADealServices;
     }
 }
