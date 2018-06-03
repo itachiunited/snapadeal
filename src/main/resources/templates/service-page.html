@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 
 <head>
     <meta charset="utf-8">
@@ -54,6 +55,9 @@
     <p id="demo"></p>
 
      <script>
+     window.onload = function() {
+     getLocation();
+    };
     var x = document.getElementById("demo");
 
     function getLocation() {
@@ -69,12 +73,13 @@
         "<br>Longitude: " + position.coords.longitude;
         document.getElementById("latitude").value = position.coords.latitude;
         document.getElementById("longitude").value = position.coords.longitude;
+       // document.locationForm.submit();
     }
     </script>
-    <form action="#">
+    <form th:action="@{/}" method="post" id="locationForm" name="locationForm">
         <input class="searchbox" id="latitude" placeholder="Latitude" hidden></input>
         <input class="searchbox" id="longitude" placeholder="Longitude" hidden></input>
-        <button  class="searchbox" onclick="getLocation()">Current Location</button>
+        <button  class="searchbox" hidden>Current Location</button>
     </form>
 
     <form>

@@ -20,6 +20,10 @@ public class User {
 
     private String location; // If Required
 
+    private String latitude;
+
+    private String longitude;
+
     private String phoneNumber;
 
     @Override
@@ -32,6 +36,8 @@ public class User {
                 ", password='" + password + '\'' +
                 ", location='" + location + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+               ", latitude='" + latitude + '\'' +
+               ", longitude='" + longitude + '\'' +
                 '}';
     }
 
@@ -43,6 +49,8 @@ public class User {
         this.password = password;
         this.location = location;
         this.phoneNumber = phoneNumber;
+        this.latitude=latitude;
+        this.longitude=longitude;
     }
 
     public String getId() {
@@ -99,5 +107,21 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getLatitude ( ) {
+        return latitude;
+    }
+
+    public void setLatitude ( String latitude ) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude ( ) {
+        return longitude;
+    }
+
+    public void setLongitude ( String longitude ) {
+        this.longitude = longitude;
     }
 }

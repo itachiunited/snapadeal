@@ -21,5 +21,7 @@ public class ViewInterceptorAdapter extends HandlerInterceptorAdapter implements
     
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        modelAndView.addObject("latitude", session.getAttribute ( "latitude" ));
+        modelAndView.addObject("longitude", session.getAttribute ( "longitude" ));
     }
 }
