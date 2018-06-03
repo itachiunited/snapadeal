@@ -23,8 +23,10 @@ public class ViewInterceptorAdapter extends HandlerInterceptorAdapter implements
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         if(null!=session) {
-            modelAndView.addObject ( "latitude" , session.getAttribute ( "latitude" ) );
-            modelAndView.addObject ( "longitude" , session.getAttribute ( "longitude" ) );
+            if(session.getAttribute ( "latitude" ) != null && session.getAttribute ( "longitude" ) != null) {
+                modelAndView.addObject("latitude", session.getAttribute("latitude"));
+                modelAndView.addObject("longitude", session.getAttribute("longitude"));
+            }
         }
 
         if(null!=session.getAttribute(USER_TYPE_KEY) && BUSINESSUSER.equalsIgnoreCase((String)session.getAttribute(USER_TYPE_KEY)))
