@@ -35,7 +35,7 @@ public class ImageService {
 
     public String getImageUrl(String publicId, int height,int width)
     {
-        String imageUrl = null
+        String imageUrl = null;
         Cloudinary cloudinary = Singleton.getCloudinary();
         imageUrl = cloudinary.url().transformation(new Transformation().width(width).height(height)).generate(publicId);
         return imageUrl;
