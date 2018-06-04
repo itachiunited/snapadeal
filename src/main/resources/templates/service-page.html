@@ -145,14 +145,16 @@
                                 <h4 class="card-title" style="color:#c43032;" th:text="${product.displayName}" >32" LG LED TV</h4>
                                 <p class="card-text" th:text="${product.description}" style="color:#00;" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
                             </div>
-                            <div style="color:#c43032;font-weight: bold;"> sanpadeal price: </div>
+                            <div style="color:#c43032;font-weight: bold;">By <span style="color:black;font-weight: normal;" th:text="${product.businessProfile.name}"> bizname </span> </div>
+                            <div style="color:#c43032;font-weight: bold;font-size: 26px;"> sanpadeal price: </div>
                             <div>
 
                                 <span class="price_snapdealsale" th:inline="text">$[[${#numbers.formatDecimal(product.salePrice, 0, 'COMMA', 2, 'POINT')}]]</span>
 
                             <div><button class="btn  btn-sm" type="button" style="background-color:#c43032;color:rgba(248,247,247,0.76);"><strong>Reserve Now</strong></button></div>
                             <div style="font-weight: bold;">regular price: <span class="price_snapdeallist" th:inline="text">$[[${#numbers.formatDecimal(product.listPrice, 0, 'COMMA', 2, 'POINT')}]]</span></div>
-                        </div>
+                            <div>&nbsp;</div>
+                            </div>
                     </div>
                 </div>
             </div>
