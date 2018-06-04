@@ -42,7 +42,8 @@ public class Product {
 
     private String publicImageId;
 
-    private String businessProfileId;
+    @DBRef
+    private BusinessProfile businessProfile;
 
     public Product() {
         this.id = id;
@@ -59,7 +60,7 @@ public class Product {
         this.startTime = startTime;
         this.endTime = endTime;
         this.numberOfViews = numberOfViews;
-        this.businessProfileId = businessProfileId;
+        this.businessProfile = businessProfile;
         this.publicImageId = publicImageId;
     }
 
@@ -81,7 +82,7 @@ public class Product {
                 ", endTime=" + endTime +
                 ", numberOfViews=" + numberOfViews +
                 ", publicImageId='" + publicImageId + '\'' +
-                ", businessProfileId=" + businessProfileId +
+                ", businessProfile=" + businessProfile +
                 '}';
     }
 
@@ -201,11 +202,11 @@ public class Product {
         this.numberOfViews = numberOfViews;
     }
 
-    public String getBusinessProfileId() {
-        return businessProfileId;
+    public BusinessProfile getBusinessProfile() {
+        return businessProfile;
     }
 
-    public void setBusinessProfileId(String businessProfileId) {
-        this.businessProfileId = businessProfileId;
+    public void setBusinessProfile(BusinessProfile businessProfile) {
+        this.businessProfile = businessProfile;
     }
 }
