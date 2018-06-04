@@ -14,7 +14,7 @@ public class Product {
 
     private @Id @Generated String id;
 
-    private String displayName;
+    private String name;
 
     private String description;
 
@@ -34,21 +34,19 @@ public class Product {
 
     private List<String> tags;
 
-    private Timestamp startTime;
+    private String startTime;
 
-    private Timestamp endTime;
+    private String endTime;
 
     private long numberOfViews;
 
     private String publicImageId;
 
-    @DBRef
-    @JsonBackReference
-    private BusinessProfile businessProfile;
+    private String businessProfileId;
 
     public Product() {
         this.id = id;
-        this.displayName = displayName;
+        this.name = name;
         this.description = description;
         this.primaryImage = primaryImage;
         this.additionalImages = additionalImages;
@@ -61,7 +59,7 @@ public class Product {
         this.startTime = startTime;
         this.endTime = endTime;
         this.numberOfViews = numberOfViews;
-        this.businessProfile = businessProfile;
+        this.businessProfileId = businessProfileId;
         this.publicImageId = publicImageId;
     }
 
@@ -69,7 +67,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id='" + id + '\'' +
-                ", displayName='" + displayName + '\'' +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", primaryImage='" + primaryImage + '\'' +
                 ", additionalImages=" + additionalImages +
@@ -83,7 +81,7 @@ public class Product {
                 ", endTime=" + endTime +
                 ", numberOfViews=" + numberOfViews +
                 ", publicImageId='" + publicImageId + '\'' +
-                ", businessProfile=" + businessProfile +
+                ", businessProfileId=" + businessProfileId +
                 '}';
     }
 
@@ -103,12 +101,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getName() {
+        return name;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -179,19 +177,19 @@ public class Product {
         this.tags = tags;
     }
 
-    public Timestamp getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Timestamp startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Timestamp getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Timestamp endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
@@ -203,12 +201,11 @@ public class Product {
         this.numberOfViews = numberOfViews;
     }
 
-    public BusinessProfile getBusinessProfile() {
-        return businessProfile;
+    public String getBusinessProfileId() {
+        return businessProfileId;
     }
 
-    public void setBusinessProfile(BusinessProfile businessProfile) {
-        this.businessProfile = businessProfile;
+    public void setBusinessProfileId(String businessProfileId) {
+        this.businessProfileId = businessProfileId;
     }
-
 }

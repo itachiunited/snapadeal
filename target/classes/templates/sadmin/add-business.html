@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Brand</title>
+    <title>Snap-A-Deal : Add Business</title>
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
@@ -35,7 +35,8 @@
             <div
                 class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="faq.html" style="color:#c43032;">ADD BUSINESS</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="/admin/add-business" style="color:#c43032;">ADD BUSINESS</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="/admin/business-login" style="color:#c43032;">BUSINESS LOGIN</a></li>
                 </ul>
         </div>
         </div>
@@ -51,7 +52,7 @@
                         <label for="category">Category</label>
                         <select class="form-control" name="category" id="category">
                             <option value="default">Choose Category</option>
-                            <option th:each="category : ${categories}" th:value="${category.key}" th:text="${category.value}" th:selected="${category.key == businessProfile.category}"></option>
+                            <option th:each="category : ${categories}" th:value="${category}" th:text="${category.value}" th:selected="${category == businessProfile.category}"></option>
                         </select>
                     </div>
                     <div class="form-group">

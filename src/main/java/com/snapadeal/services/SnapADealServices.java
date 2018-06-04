@@ -1,11 +1,17 @@
 package com.snapadeal.services;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import com.snapadeal.constants.SnapADealConstants;
 import com.snapadeal.entity.Location;
+import com.snapadeal.entity.Product;
 import com.snapadeal.form.LoginForm;
 import com.snapadeal.repository.LocationRepository;
+import com.snapadeal.repository.ProductRepository;
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,6 +20,9 @@ import com.snapadeal.entity.BusinessProfile;
 import com.snapadeal.exceptions.BusinessProfileException;
 import com.snapadeal.repository.BusinessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.convert.MongoConverter;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,6 +31,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
 
 @Service
 public class SnapADealServices implements SnapADealConstants{
@@ -30,7 +43,16 @@ public class SnapADealServices implements SnapADealConstants{
     private BusinessRepository businessRepository;
 
     @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
     private HttpSession httpSession;
+
+    @Autowired
+    private MongoConverter mongoConverter;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     public BusinessProfile createBusinessAccount(BusinessProfile businessProfile) throws BusinessProfileException {
 
@@ -112,5 +134,30 @@ public class SnapADealServices implements SnapADealConstants{
             return businessProfile;
         }
 
+    }
+
+    public void createProduct(BusinessProfile businessProfile, Product product) {
+
+        product.setBusinessProfileId(businessProfile.getId());
+        productRepository.save(product);
+
+        List<Product> products = businessProfile.getProductList();
+
+        if(null==products)
+        {
+            products = new ArrayList<>();
+        }
+        products.add(product);
+
+        businessProfile.setProductList(products);
+
+        DBObject update = getDbObject(businessProfile);
+        mongoTemplate.updateFirst(query(where("id").is(businessProfile.getId())), Update.fromDocument(new Document("$set", update)).push("events", businessProfile), BusinessProfile.class);
+    }
+
+    private DBObject getDbObject(Object o) {
+        BasicDBObject basicDBObject = new BasicDBObject();
+        mongoConverter.write(o, basicDBObject);
+        return basicDBObject;
     }
 }

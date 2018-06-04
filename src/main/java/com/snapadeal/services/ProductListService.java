@@ -32,9 +32,9 @@ public class ProductListService {
         businessProfile.setName(name);
         businessProfile.setPhoneNumber("234456789");
         Product product = new Product();
-        product.setBusinessProfile(businessProfile);
+        product.setBusinessProfileId(businessProfile.getId());
         product.setDescription(description);
-        product.setDisplayName(displayName);
+        product.setName(displayName);
         product.setListPrice(listPrice);
         product.setMaxQuantityPerCustomer(5);
         product.setPrimaryImage(imageUrl);

@@ -33,6 +33,7 @@ public class ViewInterceptorAdapter extends HandlerInterceptorAdapter implements
         {
             System.out.println("ViewInterceptorAdapter : postHandle() : Current User Type --> BUSINESSUSER");
             BusinessProfile businessProfile = snapADealServices.getCurrentBusinessUser(false);
+            System.out.println("BP --> "+businessProfile.toString());
             modelAndView.addObject("currentUser",businessProfile);
         }
     }
