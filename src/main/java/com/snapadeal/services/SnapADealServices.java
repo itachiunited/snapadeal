@@ -5,16 +5,15 @@ import com.snapadeal.constants.SnapADealConstants;
 import com.snapadeal.entity.Location;
 import com.snapadeal.entity.Product;
 import com.snapadeal.form.LoginForm;
+import com.snapadeal.form.ProductIntakeForm;
 import com.snapadeal.repository.LocationRepository;
 import com.snapadeal.repository.ProductRepository;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.sql.Timestamp;
+import java.util.*;
 
 import com.snapadeal.entity.BusinessProfile;
 import com.snapadeal.exceptions.BusinessProfileException;
@@ -159,5 +158,39 @@ public class SnapADealServices implements SnapADealConstants{
         BasicDBObject basicDBObject = new BasicDBObject();
         mongoConverter.write(o, basicDBObject);
         return basicDBObject;
+    }
+
+    public Product convertFormToProduct(@Valid ProductIntakeForm productIntakeForm) {
+        Product product = new Product();
+
+        product.setName(productIntakeForm.getName());
+        product.setDescription(productIntakeForm.getDescription());
+        product.setTotalQuantity(productIntakeForm.getTotalQuantity());
+        product.setMaxQuantityPerCustomer(productIntakeForm.getMaxQuantityPerCustomer());
+        product.setListPrice(productIntakeForm.getListPrice());
+        product.setSalePrice(productIntakeForm.getSalePrice());
+
+        if(null!=productIntakeForm.getTags()) {
+            List<String> tagList = new ArrayList<String>(Arrays.asList(productIntakeForm.getTags().split(",")));
+            product.setTags(tagList);
+        }
+
+        if(null!=productIntakeForm.getStartTime())
+        {
+            String tempString = productIntakeForm.getStartTime().replace("T"," ");
+            tempString = tempString + ":00";
+
+            product.setStartTime(Timestamp.valueOf(tempString));
+        }
+
+        if(null!=productIntakeForm.getEndTime())
+        {
+            String tempString = productIntakeForm.getEndTime().replace("T"," ");
+            tempString = tempString + ":00";
+
+            product.setEndTime(Timestamp.valueOf(tempString));
+        }
+
+        return product;
     }
 }

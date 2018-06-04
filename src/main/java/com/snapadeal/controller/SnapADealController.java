@@ -6,6 +6,7 @@ import com.snapadeal.entity.Product;
 import com.snapadeal.entity.enums.Category;
 import com.snapadeal.exceptions.BusinessProfileException;
 import com.snapadeal.form.LoginForm;
+import com.snapadeal.form.ProductIntakeForm;
 import com.snapadeal.services.ProductListService;
 import com.snapadeal.services.SnapADealServices;
 import org.bouncycastle.ocsp.Req;
@@ -172,30 +173,31 @@ public class SnapADealController implements SnapADealConstants
         {
             return "redirect:/admin/business-login";
         }
-        model.addAttribute("product",new Product());
+        model.addAttribute("productIntakeForm",new ProductIntakeForm());
         return "sadmin/add-products";
     }
 
     @RequestMapping(value="/admin/add-products", method = RequestMethod.POST)
-    public String addProductsPOST(@Valid @ModelAttribute("product") Product product, BindingResult result,
+    public String addProductsPOST(@Valid @ModelAttribute("productIntakeForm") ProductIntakeForm productIntakeForm, BindingResult result,
                                     Model model, HttpServletRequest pRequest)
     {
         BusinessProfile businessProfile = snapADealServices.getCurrentBusinessUser(false);
-        System.out.println("SnapADealController:addProductsPOST() - Creating Product --> "+product.getName()+" for Business Profile --> "+businessProfile.getLogin());
+        System.out.println("SnapADealController:addProductsPOST() - Creating Product --> "+productIntakeForm.getName()+" for Business Profile --> "+businessProfile.getLogin());
 
         if (result.hasErrors()) {
             model.addAttribute("error", true);
             System.out.println("SnapADealController:addProductsPOST() - Error --> "+result.toString());
-            model.addAttribute("product",product);
+            model.addAttribute("productIntakeForm",productIntakeForm);
             return "sadmin/add-products";
         }
 
         try {
+            Product product = snapADealServices.convertFormToProduct(productIntakeForm);
             snapADealServices.createProduct(businessProfile, product);
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", true);
-            model.addAttribute("product",product);
+            model.addAttribute("productIntakeForm",productIntakeForm);
             return "sadmin/add-products";
         }
 

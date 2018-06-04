@@ -34,9 +34,9 @@ public class Product {
 
     private List<String> tags;
 
-    private String startTime;
+    private Timestamp startTime;
 
-    private String endTime;
+    private Timestamp endTime;
 
     private long numberOfViews;
 
@@ -178,22 +178,6 @@ public class Product {
         this.tags = tags;
     }
 
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
     public long getNumberOfViews() {
         return numberOfViews;
     }
@@ -208,5 +192,21 @@ public class Product {
 
     public void setBusinessProfile(BusinessProfile businessProfile) {
         this.businessProfile = businessProfile;
+    }
+
+    public Timestamp getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
+    }
+
+    public Timestamp getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
     }
 }

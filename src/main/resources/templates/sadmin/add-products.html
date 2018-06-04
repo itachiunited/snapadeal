@@ -47,42 +47,43 @@
             <div class="block-heading">
                 <h2 class="text-info">Add Products</h2>
             </div>
-            <form th:action="@{/admin/add-products}" th:object="${product}" action="/admin/add-products" method="post">
+            <form th:action="@{/admin/add-products}" th:object="${productIntakeForm}" action="/admin/add-products" method="post">
+                <input class="form-control" name="primaryImage" id="primaryImage" type="hidden" value="test">
                 <div class="form-group">
                     <label>Product Name</label>
-                    <input class="form-control" name="name" id="name" type="text" th:value="${product.name}">
+                    <input class="form-control" name="name" id="name" type="text" th:value="${productIntakeForm.name}">
                 </div>
                 <div class="form-group">
                     <label>Description</label>
-                    <input class="form-control" name="description" id="description" th:value="${product.description}" type="text">
+                    <input class="form-control" name="description" id="description" th:value="${productIntakeForm.description}" type="text">
                 </div>
                 <div class="form-group">
                     <label>Total Quantity</label>
-                    <input class="form-control" name="totalQuantity" id="totalQuantity" type="text" th:value="${product.totalQuantity}">
+                    <input class="form-control" name="totalQuantity" id="totalQuantity" type="text" th:value="${productIntakeForm.totalQuantity}">
                 </div>
                 <div class="form-group">
                     <label>Max Quantity Per Customer</label>
-                    <input class="form-control" name="maxQuantityPerCustomer" id="maxQuantityPerCustomer" th:value="${product.maxQuantityPerCustomer}" type="text">
+                    <input class="form-control" name="maxQuantityPerCustomer" id="maxQuantityPerCustomer" th:value="${productIntakeForm.maxQuantityPerCustomer}" type="text">
                 </div>
                 <div class="form-group">
                     <label>List Price</label>
-                    <input class="form-control" name="listPrice" id="listPrice" value='0.00' placeholder='0.00' type="text" th:value="${product.listPrice}" step="0.01">
+                    <input class="form-control" name="listPrice" id="listPrice" value='0.00' placeholder='0.00' type="text" th:value="${productIntakeForm.listPrice}" step="0.01">
                 </div>
                 <div class="form-group">
                     <label>Sale Price</label>
-                    <input class="form-control" name="salePrice" id="salePrice" value='0.00' placeholder='0.00' type="text" th:value="${product.salePrice}" step="0.01">
+                    <input class="form-control" name="salePrice" id="salePrice" value='0.00' placeholder='0.00' type="text" th:value="${productIntakeForm.salePrice}" step="0.01">
                 </div>
                 <div class="form-group">
                     <label>Deal Start Time</label>
-                    <input class="form-control" name="startTime" id="startTime" type="datetime-local" th:value="${product.startTime}">
+                    <input class="form-control" name="startTime" id="startTime" type="datetime-local" th:value="${productIntakeForm.startTime}">
                 </div>
                 <div class="form-group">
                     <label>Deal End Time</label>
-                    <input class="form-control" name="endTime" id="endTime" type="datetime-local" th:value="${product.endTime}">
+                    <input class="form-control" name="endTime" id="endTime" type="datetime-local" th:value="${productIntakeForm.endTime}">
                 </div>
                 <div class="form-group">
                     <label>Tags</label>
-                    <input class="form-control" name="tags" id="tags" type="text" th:value="${product.tags}">
+                    <input class="form-control" name="tags" id="tags" type="text" th:value="${productIntakeForm.tags}">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary btn-block" type="submit">Send</button>
