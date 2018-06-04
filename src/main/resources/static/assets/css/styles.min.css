@@ -5,8 +5,8 @@
 }
 .notify-badge{
     position: absolute;
-    right:-20px;
-    top:10px;
+    right: 10px;
+    top: 30px;
     background:#c43032;
     text-align: center;
     border-radius: 30px 30px 30px 30px;
