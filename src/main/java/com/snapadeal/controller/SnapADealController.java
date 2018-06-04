@@ -52,15 +52,18 @@ public class SnapADealController implements SnapADealConstants
             double            longitude = Double.parseDouble ( pRequest.getParameter ( "longitude" ) );
             Point             dus       = new Point ( longitude , latitude );
             List < Location > locations = snapADealServices.findLocationByMiles ( dus );
-            if ( null != locations ) {
+            if ( null != locations && locations.size()>0) {
                 Location location = locations.get ( 0 );
                 System.out.println ( location );
                 httpSession.setAttribute ( "zipCode" , location.getId ( ) );
             }
         }
         model.addAttribute("categories", Category.values());
-        List<Product> list = productListService.getProductsToDisplay();
-        model.addAttribute("products",productListService.getProductsToDisplay());
+//        List<Product> list = productListService.getProductsToDisplay();
+        if(null!=pRequest.getParameter ( "latitude" )) {
+            List<Product> productList = snapADealServices.getAllNearByProducts(Double.parseDouble ( pRequest.getParameter ( "latitude" )),Double.parseDouble ( pRequest.getParameter ( "longitude" )), 25);
+            model.addAttribute("products", productList);
+        }
         return "service-page";
     }
 
@@ -126,7 +129,7 @@ public class SnapADealController implements SnapADealConstants
         if(pRequest.getParameter("latitude") != null && pRequest.getParameter("longitude") != null && businessProfile != null){
             double lat = Double.parseDouble(pRequest.getParameter("latitude"));
             double lon = Double.parseDouble(pRequest.getParameter("longitude"));
-            businessProfile.setLocation(new GeoJsonPoint(lat, lon));
+            businessProfile.setLocation(new GeoJsonPoint(lon, lat));
         }
 
         try {

@@ -1,5 +1,7 @@
 package com.snapadeal.services;
 import com.mongodb.BasicDBObject;
+import com.mongodb.BasicDBObjectBuilder;
+import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.snapadeal.constants.SnapADealConstants;
 import com.snapadeal.entity.Location;
@@ -221,5 +223,21 @@ public class SnapADealServices implements SnapADealConstants{
         }
 
         return product;
+    }
+
+    public List<Product> getAllNearByProducts(double latitude, double longitude, double distance) {
+        double[] coords = new double[2];
+        coords[0]=latitude;
+        coords[1]=longitude;
+        List<BusinessProfile> businessProfilesList = businessRepository.findByLocationNear(new Point(longitude,latitude),new Distance(distance,Metrics.MILES));
+
+
+        List<Product> listOfProducts = new ArrayList<>();
+
+        for(BusinessProfile bp : businessProfilesList)
+        {
+            listOfProducts.addAll(bp.getProductList());
+        }
+        return listOfProducts;
     }
 }
