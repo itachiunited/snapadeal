@@ -138,7 +138,7 @@ public class SnapADealServices implements SnapADealConstants{
 
     public void createProduct(BusinessProfile businessProfile, Product product) {
 
-        product.setBusinessProfileId(businessProfile.getId());
+        product.setBusinessProfile(businessProfile);
         productRepository.save(product);
 
         List<Product> products = businessProfile.getProductList();
