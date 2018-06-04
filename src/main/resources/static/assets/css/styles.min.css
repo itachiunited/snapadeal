@@ -1,3 +1,21 @@
+.card-img-top {
+    height:200px;
+}
+
+.card {
+    height:650px;
+}
+
+.card p {
+
+    height:80px;
+    text-overflow: ellipsis;
+
+}
+
+
+<div style="">
+
 .item {
     position:relative;
     padding-top:20px;
