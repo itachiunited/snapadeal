@@ -12,6 +12,9 @@ import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.*;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -52,6 +55,9 @@ public class SnapADealServices implements SnapADealConstants{
 
     @Autowired
     private MongoTemplate mongoTemplate;
+
+    @Autowired
+    private ImageService imageService;
 
     public BusinessProfile createBusinessAccount(BusinessProfile businessProfile) throws BusinessProfileException {
 
@@ -189,6 +195,29 @@ public class SnapADealServices implements SnapADealConstants{
             tempString = tempString + ":00";
 
             product.setEndTime(tempString);
+        }
+
+        if(null!=productIntakeForm.getPrimaryImage() && !productIntakeForm.getPrimaryImage().isEmpty()) {
+            System.out.println("IMAGE STARTS");
+            try {
+                File imageFile = new File(productIntakeForm.getPrimaryImage().getOriginalFilename());
+
+                imageFile.createNewFile();
+
+                FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
+                fileOutputStream.write(productIntakeForm.getPrimaryImage().getBytes());
+                fileOutputStream.close();
+
+                Map<String, String> imageUploadResult = imageService.updateImage(imageFile);
+
+                System.out.println("Public ID --> "+imageUploadResult.get("public_id"));
+                System.out.println("Image URL --> "+imageUploadResult.get("url"));
+
+                product.setPublicImageId(imageUploadResult.get("public_id"));
+                product.setPrimaryImage(imageUploadResult.get("url"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return product;

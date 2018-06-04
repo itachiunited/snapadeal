@@ -1,5 +1,7 @@
 package com.snapadeal.form;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class ProductIntakeForm {
     private String description;
 
     @NotNull(message = "Image must not be null")
-    private String primaryImage;
+    private MultipartFile primaryImage;
 
     private List<String> additionalImages;
 
@@ -66,11 +68,11 @@ public class ProductIntakeForm {
         this.description = description;
     }
 
-    public String getPrimaryImage() {
+    public MultipartFile getPrimaryImage() {
         return primaryImage;
     }
 
-    public void setPrimaryImage(String primaryImage) {
+    public void setPrimaryImage(MultipartFile primaryImage) {
         this.primaryImage = primaryImage;
     }
 
