@@ -78,9 +78,9 @@ public class SnapADealServices implements SnapADealConstants{
     @Autowired
     LocationRepository repo;
 
-    public void findLocationByMiles(){
-        List<Location> locations = repo.findByPositionNear(DUS , new Distance(25, Metrics.MILES) );
-        System.out.println (locations );
+    public List<Location> findLocationByMiles(Point dus){
+        List<Location> locations = repo.findByPositionNear(dus , new Distance(25, Metrics.MILES) );
+        return locations;
     }
 
     public void setSessionContextForBusinessUser(String pLogin, String pPassword, BusinessProfile businessProfile){

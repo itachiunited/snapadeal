@@ -64,73 +64,46 @@
                 <div class="row" style="padding:58px;">
                     <div class="col" style="background-color:rgba(196,48,50,0);padding:0px;width:1031px;"><div>
 
-
-    <p id="demo" hidden></p>
-
-     <script>
-     window.onload = function() {
-     getLocation();
-    };
-    var x = document.getElementById("demo");
-
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
-        }
-    }
-
-    function showPosition(position) {
-        x.innerHTML = "Latitude: " + position.coords.latitude +
-        "<br>Longitude: " + position.coords.longitude;
-        document.getElementById("latitude").value = position.coords.latitude;
-        document.getElementById("longitude").value = position.coords.longitude;
-       // document.locationForm.submit();
-    }
-    </script>
-    <form th:action="@{/}" method="post" id="locationForm" name="locationForm">
-        <input class="searchbox" id="latitude" placeholder="Latitude" hidden></input>
-        <input class="searchbox" id="longitude" placeholder="Longitude" hidden></input>
-        <button  class="searchbox" hidden>Current Location</button>
-    </form>
-
                         <div>
 
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                   <a  href="#" class="nostyle" > <span class="input-group-text" style="font-size:2em; color:#c43032;"><i class="fas fa-location-arrow"  ></i></span></a>
                                 </div>
-                                <input type="text" class="form-control textinput-snapadeal" placeholder="Snap A Deal by Zip or City ..." aria-label="Username" aria-describedby="basic-addon1">
+                                <input type="text" class="form-control textinput-snapadeal" placeholder="Snap A Deal by Zip or City ..." aria-label="Username" aria-describedby="basic-addon1" th:value="${session.zipCode}">
                             </div>
 
 
-                            <script>
-     window.onload = function() {
-     getLocation();
-    };
+     <script th:inline="javascript">
+     /*<![CDATA[*/
+         var latitude = /*[[${session.latitude}]]*/ '';
+       /*]]>*/
+       if(!latitude || 0 === latitude.length){
+        console.log('Calling  Location Detection Fuction : ');
+         window.onload = function() {
+                                     getLocation();
+                                    };
+       }
     var x = document.getElementById("demo");
 
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
         }
     }
-
     function showPosition(position) {
-        x.innerHTML = "Latitude: " + position.coords.latitude +
-        "<br>Longitude: " + position.coords.longitude;
-        document.getElementById("latitude").value = position.coords.latitude;
-        document.getElementById("longitude").value = position.coords.longitude;
-       // document.locationForm.submit();
+       console.log('/updateLocation?latitude='+position.coords.latitude+'&&longitude='+position.coords.longitude);
+       //window.location = '/updateLocation?latitude='+position.coords.latitude+'&&longitude='+position.coords.longitude;
+       var url = '/updateLocation';
+        var form = $('<form action="' + url + '" method="get">' +
+          '<input type="text" name="latitude" value="' + position.coords.latitude + '" />' +
+          '<input type="text" name="longitude" value="' + position.coords.longitude + '" />' +
+          '</form>');
+        $('body').append(form);
+        form.submit();
     }
     </script>
-
-
-
-                                <div >
+                             <div >
 
                                 <button class="btn btn-danger btn-sm snapadeal-button" th:each="category : ${categories}"  th:text="${category.value}">button</button>
                                 </div>

@@ -2,6 +2,7 @@ package com.snapadeal.controller;
 
 import com.snapadeal.constants.SnapADealConstants;
 import com.snapadeal.entity.BusinessProfile;
+import com.snapadeal.entity.Location;
 import com.snapadeal.entity.Product;
 import com.snapadeal.entity.enums.Category;
 import com.snapadeal.exceptions.BusinessProfileException;
@@ -13,6 +14,7 @@ import org.bouncycastle.ocsp.Req;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.snapadeal.services.SnapADealServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,7 +45,6 @@ public class SnapADealController implements SnapADealConstants
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
-        snapADealServices.findLocationByMiles ();
         model.addAttribute("categories", Category.values());
         List<Product> list = productListService.getProductsToDisplay();
         model.addAttribute("products",productListService.getProductsToDisplay());
@@ -219,4 +220,24 @@ public class SnapADealController implements SnapADealConstants
     public void setProductListService(ProductListService productListService) {
         this.productListService = productListService;
     }
+
+    @RequestMapping(value="/updateLocation", method = RequestMethod.GET)
+    public String updateLocationGET(Model model,HttpServletRequest pRequest)
+    {
+        System.out.println (pRequest.getParameter ( "latitude" ));
+        System.out.println (pRequest.getParameter ( "longitude" ));
+        httpSession.setAttribute ( "latitude", pRequest.getParameter ( "latitude" ));
+        httpSession.setAttribute ( "longitude", pRequest.getParameter ( "longitude" ));
+        double latitude = Double.parseDouble ( pRequest.getParameter ( "latitude" ) );
+        double longitude = Double.parseDouble ( pRequest.getParameter ( "longitude" ) );
+        Point dus = new Point (longitude,latitude);
+       List<Location> locations= snapADealServices.findLocationByMiles (dus );
+       if(null!=locations){
+           Location location = locations.get ( 0 );
+           System.out.println (location );
+           httpSession.setAttribute ( "zipCode", location.getId ());
+       }
+        return "forward:/";
+    }
+
 }
