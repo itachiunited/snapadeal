@@ -113,7 +113,13 @@
                 </div>
                 <div class="row" style="margin:-47px;padding:0px;">
                     <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse" th:each="product: ${products}">
-                        <div class="card"><img class="card-img-top w-100 d-block pulse animated" src="assets/img/scenery/image6.jpg" th:attr="src=${product.primaryImage}">
+                        <div class="card">
+                            <div class="item">
+
+                            <img class="card-img-top w-100 d-block pulse animated" src="assets/img/scenery/image6.jpg" th:attr="src=${product.primaryImage}">
+                                <span class="notify-badge" th:inline="text">Only $[[${#numbers.formatDecimal(product.salePrice, 0, 'COMMA', 2, 'POINT')}]]</span>
+                            </div>
+
                             <div class="card-body">
                                 <h4 class="card-title" style="color:#c43032;" th:text="${product.name}" >32" LG LED TV</h4>
                                 <p class="card-text" th:text="${product.description}" style="color:#00;" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
