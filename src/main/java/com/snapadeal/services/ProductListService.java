@@ -50,7 +50,10 @@ public class ProductListService {
     public ArrayList<Product> getProductsToDisplay()
     {
         ArrayList<Product> products = new ArrayList<>();
-        BusinessProfile businessProfile = getBizProfile("Headliner Salon","Mens Hair Hut","http://www.headlinerssalon.net/yahoo_site_admin/assets/images/P1242038.75201143_std.JPG",44.00,20.00,
+        BusinessProfile businessProfile0 = getBizProfile("Bawarchi","Hyderabad Biryani","https://i0.wp.com/swatisani.net/kitchen/wp-content/uploads/2015/10/IMG_9526.jpg?zoom=2&resize=920%2C362",14.00,6.00,
+                "Hyderbadi Chicken Biryani. Every grain of rice colourful and flavourful, a bite of chicken with every spoonful, the crunch of fried almonds interspersed with spicy and minty freshness. This dum biryani recipe is a fail proof biryani recipe and is so easy and so full of flavours that you would want to make it every weekend. So why delay; I am making it again, and you should too.");
+        products.addAll(businessProfile0.getProductList());
+        BusinessProfile businessProfile = getBizProfile("Headliner Salon","Mens Hair Hut","https://mova.co.uk/files/2016/09/xMova.jpg.pagespeed.ic.6ZkpfnV4tQ.webp",44.00,20.00,
                 "We offer the finest in service for hair, waxing and ear piercing.  We are a  Paul Mitchell Signature Salon, and a Scruples Integrity Salon, utilizing and promoting the best professional products from Paul Mitchell, Scruples, Matrix, and Keratin Complex.");
             products.addAll(businessProfile.getProductList());
         BusinessProfile   businessProfile2 = getBizProfile("Blackberry Farm","Spa Treatment","https://media.timeout.com/images/102832374/image.jpg",2344.00,1020.00,"Southern Sorghum Beautifying Body Wrap (60mins, $185), a farm-to-treatment-table body wrap showcasing sorghum, a gluten-free grain rich in vitamins and minerals that Southern farmers have been harvesting for centuries.");

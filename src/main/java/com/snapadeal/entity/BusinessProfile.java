@@ -5,7 +5,7 @@ import com.snapadeal.entity.enums.Category;
 import com.snapadeal.validators.ValidPassword;
 import lombok.Data;
 import lombok.Generated;
-import org.hibernate.validator.constraints.NotEmpty;
+
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
