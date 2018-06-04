@@ -57,6 +57,20 @@ public class ProductListService {
         products.addAll(businessProfile2 .getProductList());
         BusinessProfile businessProfile3 = getBizProfile("SenSpa","SenZen Body Ritual","https://media.timeout.com/images/102829142/750/562/image.jpg",344.00,120.00,"SenZen Body Ritual (60mins, $150), which begins with a bamboo and Thai citrus body scrub and concludes with an application of the spa’s tea-based SenZen body moisturizer.");
         products.addAll(businessProfile3 .getProductList());
+        BusinessProfile businessProfile4 = getBizProfile("Alonzo Boutique","Trendy Outfit For Women","https://i.pinimg.com/564x/16/5b/80/165b8022a5b79bc843b53cf25e367956.jpg",1399.00,500.00,"The Outfits (also called clothes) is produced fibers and fabric content used on the body. The dressed in of clothing is the mostly on a people and is a feature of nearly all human community.");
+        products.addAll(businessProfile4 .getProductList());
+        BusinessProfile businessProfile5 = getBizProfile("Bombay Grill","Chicken 65","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ99uKnffcFDiouqruaeUT2ea4DoMa53I8NteLz2AGHRlNv0Xuqrw",13.00,5.00,"Chicken 65 is a spicy, deep-fried chicken dish originating from Chennai, India, as an entrée, or quick snack. The flavour of the dish can be attributed to red chillies but the exact set of ingredients for the recipe can vary.");
+        products.addAll(businessProfile5 .getProductList());
+        BusinessProfile businessProfile6 = businessProfile;
+        BusinessProfile businessProfile7 = businessProfile5;
+        BusinessProfile businessProfile8 = businessProfile3;
+        BusinessProfile businessProfile9 = businessProfile4;
+
+        products.addAll(businessProfile6.getProductList());
+        products.addAll(businessProfile7.getProductList());
+        products.addAll(businessProfile8.getProductList());
+        products.addAll(businessProfile9.getProductList());
         return products;
+
     }
 }
