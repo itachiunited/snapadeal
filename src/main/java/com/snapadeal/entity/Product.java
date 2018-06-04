@@ -34,9 +34,9 @@ public class Product {
 
     private List<String> tags;
 
-    private Timestamp startTime;
+    private String startTime;
 
-    private Timestamp endTime;
+    private String endTime;
 
     private long numberOfViews;
 
@@ -83,7 +83,6 @@ public class Product {
                 ", endTime=" + endTime +
                 ", numberOfViews=" + numberOfViews +
                 ", publicImageId='" + publicImageId + '\'' +
-                ", businessProfile=" + businessProfile +
                 '}';
     }
 
@@ -196,18 +195,18 @@ public class Product {
     }
 
     public Timestamp getStartTime() {
-        return startTime;
+        return Timestamp.valueOf(startTime);
     }
 
-    public void setStartTime(Timestamp startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
     public Timestamp getEndTime() {
-        return endTime;
+        return Timestamp.valueOf(endTime);
     }
 
-    public void setEndTime(Timestamp endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 }

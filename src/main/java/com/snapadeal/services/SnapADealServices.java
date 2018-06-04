@@ -180,7 +180,7 @@ public class SnapADealServices implements SnapADealConstants{
             String tempString = productIntakeForm.getStartTime().replace("T"," ");
             tempString = tempString + ":00";
 
-            product.setStartTime(Timestamp.valueOf(tempString));
+            product.setStartTime(tempString);
         }
 
         if(null!=productIntakeForm.getEndTime())
@@ -188,7 +188,7 @@ public class SnapADealServices implements SnapADealConstants{
             String tempString = productIntakeForm.getEndTime().replace("T"," ");
             tempString = tempString + ":00";
 
-            product.setEndTime(Timestamp.valueOf(tempString));
+            product.setEndTime(tempString);
         }
 
         return product;
