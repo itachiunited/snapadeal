@@ -44,7 +44,20 @@ public class SnapADealController implements SnapADealConstants
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(Model model) {
+    public String index(Model model,HttpServletRequest pRequest) {
+        if(null!=pRequest.getParameter ( "latitude" )) {
+            httpSession.setAttribute ( "latitude" , pRequest.getParameter ( "latitude" ) );
+            httpSession.setAttribute ( "longitude" , pRequest.getParameter ( "longitude" ) );
+            double            latitude  = Double.parseDouble ( pRequest.getParameter ( "latitude" ) );
+            double            longitude = Double.parseDouble ( pRequest.getParameter ( "longitude" ) );
+            Point             dus       = new Point ( longitude , latitude );
+            List < Location > locations = snapADealServices.findLocationByMiles ( dus );
+            if ( null != locations ) {
+                Location location = locations.get ( 0 );
+                System.out.println ( location );
+                httpSession.setAttribute ( "zipCode" , location.getId ( ) );
+            }
+        }
         model.addAttribute("categories", Category.values());
         List<Product> list = productListService.getProductsToDisplay();
         model.addAttribute("products",productListService.getProductsToDisplay());
@@ -221,23 +234,5 @@ public class SnapADealController implements SnapADealConstants
         this.productListService = productListService;
     }
 
-    @RequestMapping(value="/updateLocation", method = RequestMethod.GET)
-    public String updateLocationGET(Model model,HttpServletRequest pRequest)
-    {
-        System.out.println (pRequest.getParameter ( "latitude" ));
-        System.out.println (pRequest.getParameter ( "longitude" ));
-        httpSession.setAttribute ( "latitude", pRequest.getParameter ( "latitude" ));
-        httpSession.setAttribute ( "longitude", pRequest.getParameter ( "longitude" ));
-        double latitude = Double.parseDouble ( pRequest.getParameter ( "latitude" ) );
-        double longitude = Double.parseDouble ( pRequest.getParameter ( "longitude" ) );
-        Point dus = new Point (longitude,latitude);
-       List<Location> locations= snapADealServices.findLocationByMiles (dus );
-       if(null!=locations){
-           Location location = locations.get ( 0 );
-           System.out.println (location );
-           httpSession.setAttribute ( "zipCode", location.getId ());
-       }
-        return "forward:/";
-    }
 
 }
