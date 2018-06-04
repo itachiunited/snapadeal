@@ -1,5 +1,6 @@
 package com.snapadeal.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.snapadeal.entity.enums.Category;
 import com.snapadeal.validators.ValidPassword;
 import lombok.Data;
@@ -119,6 +120,7 @@ public class BusinessProfile {
     private Category category;
 
     @DBRef
+    @JsonManagedReference
     private List<Product> productList;
 
     public BusinessProfile() {

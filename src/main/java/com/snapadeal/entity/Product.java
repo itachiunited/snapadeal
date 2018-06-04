@@ -43,6 +43,7 @@ public class Product {
     private String publicImageId;
 
     @DBRef
+    @JsonBackReference
     private BusinessProfile businessProfile;
 
     public Product() {
