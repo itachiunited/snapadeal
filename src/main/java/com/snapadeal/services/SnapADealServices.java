@@ -6,10 +6,12 @@ import com.mongodb.DBObject;
 import com.snapadeal.constants.SnapADealConstants;
 import com.snapadeal.entity.Location;
 import com.snapadeal.entity.Product;
+import com.snapadeal.entity.ReservationOrder;
 import com.snapadeal.form.LoginForm;
 import com.snapadeal.form.ProductIntakeForm;
 import com.snapadeal.repository.LocationRepository;
 import com.snapadeal.repository.ProductRepository;
+import com.snapadeal.repository.ReservationOrderRepository;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.*;
@@ -60,6 +62,9 @@ public class SnapADealServices implements SnapADealConstants{
 
     @Autowired
     private ImageService imageService;
+
+    @Autowired
+    private ReservationOrderRepository reservationOrderRepository;
 
     public BusinessProfile createBusinessAccount(BusinessProfile businessProfile) throws BusinessProfileException {
 
@@ -257,5 +262,13 @@ public class SnapADealServices implements SnapADealConstants{
 
         System.out.println("Product --> "+product);
 
+    }
+
+    public ReservationOrder placeOrder(ReservationOrder reservationOrder) {
+
+        reservationOrderRepository.save(reservationOrder);
+        System.out.println("Reservation Order --> "+reservationOrder.toString());
+
+        return reservationOrder;
     }
 }
