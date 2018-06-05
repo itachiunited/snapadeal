@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snap-A-Deal</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/css/styles.min.css">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar" style="color:#111111;">
+        <div class="container"><a class="navbar-brand logo" href="#"><img src="/assets/img/snapadeallogo.jpg" style="width:250px;"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="/admin/add-products" style="color:#c43032;">ADD PRODUCTS</a></li>
+                </ul>
+        </div>
+        </div>
+    </nav>
+
+    <main class="page service-page">
+        <section class="clean-block clean-services dark">
+            <div class="container">
+                <div class="row" style="padding:58px;">
+                    <div class="col" style="background-color:rgba(196,48,50,0);padding:0px;width:1031px;"><div>
+
+                        <div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="row" style="margin:-47px;padding:0px;margin-top:20px;">
+                    <div class="col-md-6 col-lg-4" data-bs-hover-animate="pulse" th:each="product: ${products}">
+                        <div class="card">
+                            <div class="item">
+
+                            <img class="card-img-top w-100 d-block pulse animated" src="/assets/img/scenery/image6.jpg" th:attr="src=${product.primaryImage}">
+                                <span class="notify-badge" th:inline="text">Only $[[${#numbers.formatDecimal(product.salePrice, 0, 'COMMA', 2, 'POINT')}]]</span>
+                            </div>
+
+                            <div class="card-body">
+                                <h4 class="card-title" style="color:#c43032;" th:text="${product.name}" >32" LG LED TV</h4>
+                                <p class="card-text" th:text="${product.description}" style="color:#00;" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
+                            </div>
+                            <div style="color:#c43032;font-weight: bold;">By <span style="color:black;font-weight: normal;" th:text="${product.businessProfile.name}"> bizname </span> </div>
+                            <div style="color:#c43032;font-weight: bold;font-size: 26px;"> snapadeal price: </div>
+                            <div>
+
+                                <span class="price_snapdealsale" th:inline="text">$[[${#numbers.formatDecimal(product.salePrice, 0, 'COMMA', 2, 'POINT')}]]</span>
+
+                            <div><button class="btn  btn-sm" type="button" style="background-color:#c43032;color:rgba(248,247,247,0.76);"><strong>Reserve Now</strong></button></div>
+                            <div style="font-weight: bold;">regular price: <span class="price_snapdeallist" th:inline="text">$[[${#numbers.formatDecimal(product.listPrice, 0, 'COMMA', 2, 'POINT')}]]</span></div>
+                            <div>&nbsp;</div>
+                            </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="page-footer dark" style="background-color:#c43032;padding-top:10px;"><div style="text-align:center;color:white;"><i class="far fa-copyright"></i>2018 Snap-A-Deal</div></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/script.min.js"></script>
+</body>
+
+</html>

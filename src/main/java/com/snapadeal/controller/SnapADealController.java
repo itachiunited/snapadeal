@@ -75,6 +75,13 @@ public class SnapADealController implements SnapADealConstants
         return "service-page";
     }
 
+    @RequestMapping(value="/admin/products", method = RequestMethod.GET)
+    public String businessPLPGET(Model model)
+    {
+        model.addAttribute("products",snapADealServices.getCurrentBusinessUser(true).getProductList());
+        return "sadmin/products";
+    }
+
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public String userLoginGet(Model model)
     {
@@ -240,7 +247,7 @@ public class SnapADealController implements SnapADealConstants
             return "sadmin/add-products";
         }
 
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
 
     public SnapADealServices getSnapADealServices ( ) {
