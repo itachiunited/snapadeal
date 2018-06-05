@@ -4,9 +4,7 @@ import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.snapadeal.constants.SnapADealConstants;
-import com.snapadeal.entity.Location;
-import com.snapadeal.entity.Product;
-import com.snapadeal.entity.ReservationOrder;
+import com.snapadeal.entity.*;
 import com.snapadeal.form.LoginForm;
 import com.snapadeal.form.ProductIntakeForm;
 import com.snapadeal.repository.LocationRepository;
@@ -22,7 +20,6 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.*;
 
-import com.snapadeal.entity.BusinessProfile;
 import com.snapadeal.exceptions.BusinessProfileException;
 import com.snapadeal.repository.BusinessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +32,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -94,6 +93,43 @@ public class SnapADealServices implements SnapADealConstants{
     public List<Location> findLocationByMiles(Point dus){
         List<Location> locations = repo.findByPositionNear(dus , new Distance(25, Metrics.MILES) );
         return locations;
+    }
+
+    public IP2Data findIP2LocaitonData(String ip){
+        RestTemplate restTemplate = new RestTemplate();
+        IP2Data      ip2Data        = restTemplate.getForObject ( "http://api.ipstack.com/"+ip+"?access_key=616160d52abbf0e20f53d38dc7528f99", IP2Data.class );
+        return ip2Data;
+    }
+
+    public void loadLocationToSession (HttpServletRequest pRequest ){
+        if(null == httpSession.getAttribute ( "zipCode" )) {
+            String  ip              = pRequest.getHeader ( "X-FORWARDED-FOR" );
+            boolean isIp2DataLoaded = false;
+            if ( null != ip ) {
+                IP2Data ip2Data = findIP2LocaitonData ( ip );
+                if ( null != ip2Data && null != ip2Data.getZip ( ) ) {
+                    httpSession.setAttribute ( "latitude" , ip2Data.getLatitude ( ) );
+                    httpSession.setAttribute ( "longitude" , ip2Data.getLongitude ( ) );
+                    httpSession.setAttribute ( "zipCode" , ip2Data.getZip ( ) );
+                    System.out.println ( ip2Data.toString ( ) );
+                    isIp2DataLoaded = true;
+                }
+            }
+
+            if ( ! isIp2DataLoaded && null != pRequest.getParameter ( "latitude" ) ) {
+                httpSession.setAttribute ( "latitude" , pRequest.getParameter ( "latitude" ) );
+                httpSession.setAttribute ( "longitude" , pRequest.getParameter ( "longitude" ) );
+                double            latitude  = Double.parseDouble ( pRequest.getParameter ( "latitude" ) );
+                double            longitude = Double.parseDouble ( pRequest.getParameter ( "longitude" ) );
+                Point             dus       = new Point ( longitude , latitude );
+                List < Location > locations = findLocationByMiles ( dus );
+                if ( null != locations && locations.size ( ) > 0 ) {
+                    Location location = locations.get ( 0 );
+                    System.out.println ( location );
+                    httpSession.setAttribute ( "zipCode" , location.getId ( ) );
+                }
+            }
+        }
     }
 
     public void findZipCodeForLatLong(double latitude,double longitude){

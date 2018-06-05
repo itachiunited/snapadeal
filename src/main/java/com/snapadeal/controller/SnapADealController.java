@@ -1,10 +1,7 @@
 package com.snapadeal.controller;
 
 import com.snapadeal.constants.SnapADealConstants;
-import com.snapadeal.entity.BusinessProfile;
-import com.snapadeal.entity.Location;
-import com.snapadeal.entity.Product;
-import com.snapadeal.entity.ReservationOrder;
+import com.snapadeal.entity.*;
 import com.snapadeal.entity.enums.Category;
 import com.snapadeal.exceptions.BusinessProfileException;
 import com.snapadeal.form.LoginForm;
@@ -54,19 +51,7 @@ public class SnapADealController implements SnapADealConstants
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model,HttpServletRequest pRequest) {
-        if(null!=pRequest.getParameter ( "latitude" )) {
-            httpSession.setAttribute ( "latitude" , pRequest.getParameter ( "latitude" ) );
-            httpSession.setAttribute ( "longitude" , pRequest.getParameter ( "longitude" ) );
-            double            latitude  = Double.parseDouble ( pRequest.getParameter ( "latitude" ) );
-            double            longitude = Double.parseDouble ( pRequest.getParameter ( "longitude" ) );
-            Point             dus       = new Point ( longitude , latitude );
-            List < Location > locations = snapADealServices.findLocationByMiles ( dus );
-            if ( null != locations && locations.size()>0) {
-                Location location = locations.get ( 0 );
-                System.out.println ( location );
-                httpSession.setAttribute ( "zipCode" , location.getId ( ) );
-            }
-        }
+
         model.addAttribute("categories", Category.values());
 //        List<Product> list = productListService.getProductsToDisplay();
         if(null!=pRequest.getParameter ( "latitude" )) {
