@@ -46,7 +46,6 @@ $( document ).ready(function() {
                    {
                        if(data.orderPlaced)
                        {
-                            alert('success');
                             $("#reserveOrder").css('background-color','#008000');
                             $("#reserveOrder").html('Reservation Complete');
                             $("#reserveOrder").prop('disabled',true);
@@ -54,7 +53,6 @@ $( document ).ready(function() {
                        }
                        else
                        {
-                            alert('error');
                        }
                    }
                  });
