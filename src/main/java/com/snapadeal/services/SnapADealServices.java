@@ -246,6 +246,7 @@ public class SnapADealServices implements SnapADealConstants{
 
         for(BusinessProfile bp : businessProfilesList)
         {
+            if(null != bp.getProductList() && bp.getProductList().size() > 0)
             listOfProducts.addAll(bp.getProductList());
         }
         return listOfProducts;
