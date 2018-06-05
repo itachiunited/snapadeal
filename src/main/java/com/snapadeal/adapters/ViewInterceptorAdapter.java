@@ -28,7 +28,13 @@ public class ViewInterceptorAdapter extends HandlerInterceptorAdapter implements
                 System.out.println (session.getAttribute ( "longitude" ));
                 modelAndView.addObject("latitude", session.getAttribute("latitude"));
                 modelAndView.addObject("longitude", session.getAttribute("longitude"));
-                modelAndView.addObject("zipCode", session.getAttribute("zipCode"));
+                if(null!=session.getAttribute("zipCode")) {
+                    modelAndView.addObject ( "zipCode" , session.getAttribute ( "zipCode" ) );
+                }
+                else{
+                    snapADealServices.findZipCodeForLatLong (Double.parseDouble ((String)session.getAttribute("latitude")), Double.parseDouble ((String)session.getAttribute("longitude")) );
+                    modelAndView.addObject ( "zipCode" , session.getAttribute ( "zipCode" ) );
+                }
             }
         }
 

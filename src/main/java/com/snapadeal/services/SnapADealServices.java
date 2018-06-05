@@ -96,6 +96,16 @@ public class SnapADealServices implements SnapADealConstants{
         return locations;
     }
 
+    public void findZipCodeForLatLong(double latitude,double longitude){
+        Point             dus       = new Point ( longitude , latitude );
+        List < Location > locations = findLocationByMiles ( dus );
+        if ( null != locations && locations.size()>0) {
+            Location location = locations.get ( 0 );
+            System.out.println ( location );
+            httpSession.setAttribute ( "zipCode" , location.getId ( ) );
+        }
+    }
+
     public void setSessionContextForBusinessUser(String pLogin, String pPassword, BusinessProfile businessProfile){
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add (new SimpleGrantedAuthority("BUSINESSUSER"));
