@@ -11,4 +11,6 @@ import java.util.List;
 public interface ReservationOrderRepository extends MongoRepository<ReservationOrder, String>
 {
     public ReservationOrder findByProfileId(String profileId);
+
+    public ReservationOrder findByReservationCode(String reservationCode);
 }

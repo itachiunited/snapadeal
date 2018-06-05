@@ -20,16 +20,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +56,7 @@ public class SnapADealController implements SnapADealConstants
             List<Product> productList = snapADealServices.getAllNearByProducts(Double.parseDouble ( pRequest.getParameter ( "latitude" )),Double.parseDouble ( pRequest.getParameter ( "longitude" )), 25);
             model.addAttribute("products", productList);
         }
+        model.addAttribute("reservationOrder",new ReservationOrder());
         return "service-page";
     }
 
@@ -294,33 +293,35 @@ public class SnapADealController implements SnapADealConstants
         this.productListService = productListService;
     }
 
-    @RequestMapping(value="/admin/reserve", method = RequestMethod.POST)
-    public String reservePOST(@Valid @ModelAttribute("reservationOrder") ReservationOrder reservationOrder, BindingResult result,
+    @RequestMapping(value="/reserve", method = RequestMethod.POST)
+    @ResponseBody
+    public Map reservePOST(@Valid @ModelAttribute("reservationOrder") ReservationOrder reservationOrder, BindingResult result,
                               Model model, HttpServletRequest pRequest)
     {
+        Map responseMap = new HashMap();
         BusinessProfile businessProfile = snapADealServices.getCurrentBusinessUser(false);
-        System.out.println("SnapADealController:addProductsPOST() - Creating Order for Product --> "+reservationOrder.getProductId());
+        System.out.println("SnapADealController:reservePOST() - Creating Order for Product --> "+reservationOrder.getProductId());
 
         if (result.hasErrors()) {
-            model.addAttribute("error", true);
-            System.out.println("SnapADealController:addProductsPOST() - Error --> "+result.toString());
+            responseMap.put("error", true);
+            System.out.println("SnapADealController:reservePOST() - Error --> "+result.toString());
             model.addAttribute("reservationOrder",reservationOrder);
-            return "service-page";
+            return responseMap;
         }
 
         try {
             reservationOrder = snapADealServices.placeOrder(reservationOrder);
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("error", true);
-            model.addAttribute("reservationOrder",reservationOrder);
-            return "sadmin/add-products";
+            responseMap.put("error", true);
+            responseMap.put("reservationOrder",reservationOrder);
+            return responseMap;
         }
 
-        model.addAttribute("reservationOrder",reservationOrder);
-        model.addAttribute("orderPlaced",true);
+        responseMap.put("reservationOrder",reservationOrder);
+        responseMap.put("orderPlaced",true);
 
-        return "service-page";
+        return responseMap;
     }
 
 }

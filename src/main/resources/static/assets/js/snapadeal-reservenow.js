@@ -20,6 +20,7 @@ $.ajax({
       modal.find('#saleprice-modal').text(data.salePrice)
       modal.find('#listprice-modal').text(data.listPrice)
       modal.find('.notify-badge').text('$ '+data.salePrice)
+      modal.find('#productId').val(data.id)
 
 
 
@@ -32,4 +33,32 @@ $.ajax({
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 
 
+})
+
+$( document ).ready(function() {
+    $("#reserveOrder").click(function (event) {
+        var url='/reserve';
+        $.ajax({
+                   type: "POST",
+                   url: url,
+                   data: $("#reserveOrderForm").serialize(), // serializes the form's elements.
+                   success: function(data)
+                   {
+                       if(data.orderPlaced)
+                       {
+                            alert('success');
+                            $("#reserveOrder").css('background-color','#008000');
+                            $("#reserveOrder").html('Reservation Complete');
+                            $("#reserveOrder").prop('disabled',true);
+                            $("#reserve-response").html('Congratulation! Please use this reservation code during pickup : '+data.reservationOrder.reservationCode);
+                       }
+                       else
+                       {
+                            alert('error');
+                       }
+                   }
+                 });
+
+            event.preventDefault();
+    });
 })

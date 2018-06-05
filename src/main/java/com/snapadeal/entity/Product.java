@@ -42,6 +42,8 @@ public class Product {
 
     private String publicImageId;
 
+    private int reservationHoldTimeInHours;
+
     @DBRef
     @JsonBackReference
     private BusinessProfile businessProfile;
@@ -63,27 +65,7 @@ public class Product {
         this.numberOfViews = numberOfViews;
         this.businessProfile = businessProfile;
         this.publicImageId = publicImageId;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", primaryImage='" + primaryImage + '\'' +
-                ", additionalImages=" + additionalImages +
-                ", totalQuantity=" + totalQuantity +
-                ", maxQuantityPerCustomer=" + maxQuantityPerCustomer +
-                ", listPrice=" + listPrice +
-                ", salePrice=" + salePrice +
-                ", discount='" + discount + '\'' +
-                ", tags=" + tags +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", numberOfViews=" + numberOfViews +
-                ", publicImageId='" + publicImageId + '\'' +
-                '}';
+        this.reservationHoldTimeInHours = reservationHoldTimeInHours;
     }
 
     public String getPublicImageId() {
@@ -208,5 +190,36 @@ public class Product {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", primaryImage='" + primaryImage + '\'' +
+                ", additionalImages=" + additionalImages +
+                ", totalQuantity=" + totalQuantity +
+                ", maxQuantityPerCustomer=" + maxQuantityPerCustomer +
+                ", listPrice=" + listPrice +
+                ", salePrice=" + salePrice +
+                ", discount='" + discount + '\'' +
+                ", tags=" + tags +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", numberOfViews=" + numberOfViews +
+                ", publicImageId='" + publicImageId + '\'' +
+                ", reservationHoldTimeInHours=" + reservationHoldTimeInHours +
+                ", businessProfile=" + businessProfile +
+                '}';
+    }
+
+    public int getReservationHoldTimeInHours() {
+        return reservationHoldTimeInHours;
+    }
+
+    public void setReservationHoldTimeInHours(int reservationHoldTimeInHours) {
+        this.reservationHoldTimeInHours = reservationHoldTimeInHours;
     }
 }

@@ -315,6 +315,31 @@ public class SnapADealServices implements SnapADealConstants{
 
     public ReservationOrder placeOrder(ReservationOrder reservationOrder) {
 
+        Product product = findProductById(reservationOrder.getProductId());
+
+        reservationOrder.setBusinessId(product.getBusinessProfile().getId());
+
+        // Random Code Generation
+
+        String reservationCode = String.valueOf((long)Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L);
+
+        while(null!=reservationOrderRepository.findByReservationCode(reservationCode))
+        {
+            reservationCode = String.valueOf((long)Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L);
+        }
+        System.out.println("Reservation Code For this Order --> "+reservationCode);
+
+        reservationOrder.setReservationCode(reservationCode);
+        reservationOrder.setSubmittedDate(new Timestamp(System.currentTimeMillis()));
+
+        int hours = 48;
+        if(0!=product.getReservationHoldTimeInHours())
+        {
+            hours = product.getReservationHoldTimeInHours();
+        }
+
+        reservationOrder.setReservationEndDate(new Timestamp(System.currentTimeMillis()+(hours*60*60*1000)));
+
         reservationOrderRepository.save(reservationOrder);
         System.out.println("Reservation Order --> "+reservationOrder.toString());
 

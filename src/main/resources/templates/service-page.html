@@ -175,38 +175,40 @@
                                         <span class="card-title"> Reserving this item  is simple ..! We just need  below information</span>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-3">
+                                <form th:action="@{/reserve}" th:object="${reservationOrder}" action="/reserve" method="post" id="reserveOrderForm">
+                                    <div class="row">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-3">
+                                                <input type="hidden" class="form-control" name="productId" id="productId">
+                                                <input type="text" class="form-control" placeholder="Email Address" name="email" id="email" th:value="${reservationOrder.email}">
+                                            </div>
+                                            <div class="form-group col-md-3">
 
-                                            <input type="text" class="form-control" id="inputEmailAddress" placeholder="Email Address">
+                                                <input type="text" class="form-control" placeholder="Phone Number" name="phoneNumber" data-inputmask="'mask': '(999) 999-9999'" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" id="phoneNumber" th:value="${reservationOrder.phoneNumber}">
+                                            </div>
+                                            <div class="form-group col-md-2">
+
+                                                <select class="form-control" name="quantity" id="quantity" th:value="${reservationOrder.quantity}">
+                                                    <option selected>Qty</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                    <option>7</option>
+                                                    <option>8</option>
+                                                    <option>9</option>
+                                                    <option>10</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-md-4">
+                                                <button type="button" class="btn btn-primary" id="reserveOrder" style="background-color:#c43032;color:rgba(248,247,247,0.76);">Reserve Now</button>
+                                            </div>
+                                            <div id="reserve-response" class="form-group" style="font-weight: bold;color:#008000;"></div>
                                         </div>
-                                        <div class="form-group col-md-3">
 
-                                            <input type="text" class="form-control" id="inputPhoneNumber" placeholder="Phone Number">
-                                        </div>
-                                        <div class="form-group col-md-2">
-
-                                            <select id="inputState" class="form-control">
-                                                <option selected>Qty</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                                <option>7</option>
-                                                <option>8</option>
-                                                <option>9</option>
-                                                <option>10</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group col-md-4">
-                                            <button type="button" class="btn btn-primary" style="background-color:#c43032;color:rgba(248,247,247,0.76);">Reserve Now</button>
-                                        </div>
-
-                                    </div>
 
 
 
@@ -216,6 +218,7 @@
                                     </div>
                                 </div>
                             </div>
+                                </form>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -234,7 +237,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/script.min.js"></script>
     <script src="assets/js/snapadeal-reservenow.js"></script>
-
+    <script src="/assets/inputmask/jquery.inputmask.bundle.js"></script>
+    <script src="/assets/inputmask/inputmask.binding.js"></script>
 
 
 </body>

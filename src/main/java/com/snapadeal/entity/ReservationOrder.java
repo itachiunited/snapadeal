@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.Generated;
 
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Data
@@ -15,10 +17,13 @@ public class ReservationOrder {
 
     private String productId;
 
+    @NotEmpty(message = "Quantity must not be null")
     private String quantity;
 
+    @NotEmpty(message = "Email must not be null")
     private String email;
 
+    @NotEmpty(message = "Phone Number must not be null")
     private String phoneNumber;
 
     private String profileId;
