@@ -51,7 +51,7 @@ public class SnapADealController implements SnapADealConstants
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model,HttpServletRequest pRequest) {
-
+        snapADealServices.loadLocationToSession(pRequest);
         model.addAttribute("categories", Category.values());
 //        List<Product> list = productListService.getProductsToDisplay();
         if(null!=pRequest.getParameter ( "latitude" )) {

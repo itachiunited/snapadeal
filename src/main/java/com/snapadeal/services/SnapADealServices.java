@@ -103,6 +103,10 @@ public class SnapADealServices implements SnapADealConstants{
 
     public void loadLocationToSession (HttpServletRequest pRequest ){
             String  ip              = pRequest.getHeader ( "X-FORWARDED-FOR" );
+            if (ip == null || "".equals(ip)) {
+                ip = pRequest.getRemoteAddr();
+            }
+            System.out.println ("Ip Address " + ip );
             boolean isIp2DataLoaded = false;
             if ( null != ip ) {
                 IP2Data ip2Data = findIP2LocaitonData ( ip );
