@@ -102,7 +102,6 @@ public class SnapADealServices implements SnapADealConstants{
     }
 
     public void loadLocationToSession (HttpServletRequest pRequest ){
-        if(null == httpSession.getAttribute ( "zipCode" )) {
             String  ip              = pRequest.getHeader ( "X-FORWARDED-FOR" );
             boolean isIp2DataLoaded = false;
             if ( null != ip ) {
@@ -129,7 +128,6 @@ public class SnapADealServices implements SnapADealConstants{
                     httpSession.setAttribute ( "zipCode" , location.getId ( ) );
                 }
             }
-        }
     }
 
     public void findZipCodeForLatLong(double latitude,double longitude){
