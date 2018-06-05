@@ -38,6 +38,34 @@ public class ProductIntakeForm {
     @NotNull(message = "End Time must not be null")
     private String endTime;
 
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductIntakeForm{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", primaryImage=" + primaryImage +
+                ", additionalImages=" + additionalImages +
+                ", totalQuantity=" + totalQuantity +
+                ", maxQuantityPerCustomer=" + maxQuantityPerCustomer +
+                ", listPrice=" + listPrice +
+                ", salePrice=" + salePrice +
+                ", tags='" + tags + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
+
     public ProductIntakeForm() {
         this.name = name;
         this.description = description;
@@ -50,6 +78,7 @@ public class ProductIntakeForm {
         this.tags = tags;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.id = id;
     }
 
     public String getName() {

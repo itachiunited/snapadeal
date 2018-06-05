@@ -183,7 +183,7 @@ public class SnapADealServices implements SnapADealConstants{
             product.setTags(tagList);
         }
 
-        if(null!=productIntakeForm.getStartTime())
+        if(null!=productIntakeForm.getStartTime() && null==productIntakeForm.getId())
         {
             String tempString = productIntakeForm.getStartTime().replace("T"," ");
             tempString = tempString + ":00";
@@ -191,7 +191,7 @@ public class SnapADealServices implements SnapADealConstants{
             product.setStartTime(tempString);
         }
 
-        if(null!=productIntakeForm.getEndTime())
+        if(null!=productIntakeForm.getEndTime() && null==productIntakeForm.getId())
         {
             String tempString = productIntakeForm.getEndTime().replace("T"," ");
             tempString = tempString + ":00";
@@ -222,6 +222,11 @@ public class SnapADealServices implements SnapADealConstants{
             }
         }
 
+        if(null!=productIntakeForm.getId())
+        {
+            product.setId(productIntakeForm.getId());
+        }
+
         return product;
     }
 
@@ -239,5 +244,18 @@ public class SnapADealServices implements SnapADealConstants{
             listOfProducts.addAll(bp.getProductList());
         }
         return listOfProducts;
+    }
+
+    public Product findProductById(String productId) {
+        return productRepository.findById(productId).get();
+    }
+
+    public void editProduct(Product product) {
+
+        DBObject update = getDbObject(product);
+        mongoTemplate.updateFirst(query(where("id").is(product.getId())), Update.fromDocument(new Document("$set", update)).push("events", product), Product.class);
+
+        System.out.println("Product --> "+product);
+
     }
 }

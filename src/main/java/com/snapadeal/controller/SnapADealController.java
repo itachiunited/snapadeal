@@ -250,6 +250,48 @@ public class SnapADealController implements SnapADealConstants
         return "redirect:/admin/products";
     }
 
+    @RequestMapping(value="/admin/edit-product", method = RequestMethod.GET)
+    public String editProductGET(Model model, @RequestParam("id") String productId)
+    {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //ROLE_ANONYMOUS
+        if ("anonymousUser".equalsIgnoreCase(auth.getName())
+                && (null == httpSession.getAttribute(USER_TYPE_KEY) || BUSINESSUSER.equalsIgnoreCase((String)httpSession.getAttribute(USER_TYPE_KEY))))
+        {
+            return "redirect:/admin/business-login";
+        }
+        model.addAttribute("productIntakeForm",new ProductIntakeForm());
+        model.addAttribute("product",snapADealServices.findProductById(productId));
+        return "sadmin/edit-product";
+    }
+
+    @RequestMapping(value="/admin/edit-product", method = RequestMethod.POST)
+    public String editProductPOST(@Valid @ModelAttribute("productIntakeForm") ProductIntakeForm productIntakeForm, BindingResult result,
+                                  Model model, HttpServletRequest pRequest)
+    {
+        BusinessProfile businessProfile = snapADealServices.getCurrentBusinessUser(false);
+        System.out.println("SnapADealController:editProductPOST() - Editing Product --> "+productIntakeForm.toString()+" for Business Profile --> "+businessProfile.getLogin());
+
+        if (result.hasErrors()) {
+            model.addAttribute("error", true);
+            System.out.println("SnapADealController:editProductPOST() - Error --> "+result.toString());
+            model.addAttribute("productIntakeForm",productIntakeForm);
+            return "sadmin/add-products";
+        }
+
+        try {
+            Product product = snapADealServices.convertFormToProduct(productIntakeForm);
+            snapADealServices.editProduct(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", true);
+            model.addAttribute("productIntakeForm",productIntakeForm);
+            return "sadmin/add-products";
+        }
+
+        return "redirect:/admin/products";
+    }
+
     public SnapADealServices getSnapADealServices ( ) {
         return snapADealServices;
     }
