@@ -49,7 +49,7 @@ $( document ).ready(function() {
                             $("#reserveOrder").css('background-color','#008000');
                             $("#reserveOrder").html('Reservation Complete');
                             $("#reserveOrder").prop('disabled',true);
-                            $("#reserve-response").html('Congratulation! Please use this reservation code during pickup : '+data.reservationOrder.reservationCode);
+                            $("#reserve-response").html('Congratulations! Please use this reservation code during pickup : '+data.reservationOrder.reservationCode);
                        }
                        else
                        {
