@@ -53,7 +53,7 @@ public class SnapADealController implements SnapADealConstants
         model.addAttribute("categories", Category.values());
 //        List<Product> list = productListService.getProductsToDisplay();
         if(null!=pRequest.getParameter ( "latitude" )) {
-            List<Product> productList = snapADealServices.getAllNearByProducts(Double.parseDouble ( pRequest.getParameter ( "latitude" )),Double.parseDouble ( pRequest.getParameter ( "longitude" )), 25);
+            List<Product> productList = snapADealServices.getAllNearByProducts(Double.parseDouble ( pRequest.getParameter ( "latitude" )),Double.parseDouble ( pRequest.getParameter ( "longitude" )), 30);
             model.addAttribute("products", productList);
         }
         model.addAttribute("reservationOrder",new ReservationOrder());
