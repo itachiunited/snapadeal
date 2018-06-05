@@ -47,7 +47,7 @@
                 <div class="block-heading">
                     <h2 class="text-info">Add Business</h2>
                 </div>
-                <form th:action="@{/admin/add-business}" th:object="${businessProfile}" action="/admin/add-business" method="post">
+                <form th:action="@{/admin/add-business}" th:object="${businessProfile}" action="/admin/add-business" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="category">Category</label>
                         <select class="form-control" name="category" id="category">
@@ -101,6 +101,10 @@
                     <div class="form-group">
                         <label>Website</label>
                         <input class="form-control" name="website" id="website" type="text" th:value="${businessProfile.website}">
+                    </div>
+                    <div class="form-group">
+                        <label>Business Logo</label>
+                        <input class="form-control" name="logoImage" id="logoImage" type="file">
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary btn-block" type="submit">Send</button>

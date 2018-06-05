@@ -8,6 +8,7 @@ import com.snapadeal.entity.enums.Category;
 import com.snapadeal.exceptions.BusinessProfileException;
 import com.snapadeal.form.LoginForm;
 import com.snapadeal.form.ProductIntakeForm;
+import com.snapadeal.services.ImageService;
 import com.snapadeal.services.ProductListService;
 import com.snapadeal.services.SnapADealServices;
 import org.bouncycastle.ocsp.Req;
@@ -24,11 +25,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class SnapADealController implements SnapADealConstants
@@ -41,6 +46,9 @@ public class SnapADealController implements SnapADealConstants
 
     @Autowired
     private ProductListService productListService;
+
+    @Autowired
+    private ImageService imageService;
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -114,7 +122,7 @@ public class SnapADealController implements SnapADealConstants
 
     @RequestMapping(value="/admin/add-business", method = RequestMethod.POST)
     public String addBusinessPOST(@Valid @ModelAttribute("businessProfile") BusinessProfile businessProfile, BindingResult result,
-                                  Model model, HttpServletRequest pRequest)
+                                  Model model, HttpServletRequest pRequest, @RequestParam("logoImage") MultipartFile pLogoImage)
     {
         System.out.println("SnapADealController:addBusinessPOST() - Creating Business Profile For --> "+businessProfile.getLogin());
 
@@ -133,6 +141,14 @@ public class SnapADealController implements SnapADealConstants
         }
 
         try {
+
+            if(pLogoImage != null && !pLogoImage.isEmpty()){
+                Map<String,String> uploadResult = imageService.updateImageBytes(pLogoImage.getBytes());
+                if(uploadResult != null && uploadResult.get("secure_url") != null){
+                    businessProfile.setLogo(uploadResult.get("secure_url"));
+                }
+            }
+
             snapADealServices.createBusinessAccount(businessProfile);
         } catch (BusinessProfileException e) {
             e.printStackTrace();
@@ -140,6 +156,12 @@ public class SnapADealController implements SnapADealConstants
             model.addAttribute("businessProfile",businessProfile);
             model.addAttribute("categories", Category.values());
             return "sadmin/add-business";
+        } catch (IOException e) {
+            e.printStackTrace();
+            model.addAttribute("warn", true);
+            model.addAttribute("businessProfile",businessProfile);
+            model.addAttribute("categories", Category.values());
+            model.addAttribute("message", "Unable to upload Logo. Please try again later.");
         }
 
         return "redirect:/admin/add-products";

@@ -44,6 +44,22 @@ public class ImageService {
 
     }
 
+    public Map<String,String> updateImageBytes(byte[] fileToUpload)
+    {
+        Map<String,String> uploadResult = null;
+        Cloudinary cloudinary = Singleton.getCloudinary();
+        try {
+            uploadResult = cloudinary.uploader().upload(fileToUpload, ObjectUtils.emptyMap());
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            return null;
+        }
+
+        return uploadResult;
+
+    }
+
     public String getImageUrl(String publicId, int height,int width)
     {
         String imageUrl = null;
