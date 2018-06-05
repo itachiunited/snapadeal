@@ -124,8 +124,8 @@
                                 <h4 class="card-title" style="color:#c43032;" th:text="${product.name}" >32" LG LED TV</h4>
                                 <p class="card-text" th:text="${product.description}" style="color:#00;" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in.</p>
                             </div>
-                            <div style="color:#c43032;font-weight: bold;">By <span style="color:black;font-weight: normal;" th:text="${product.name}"> bizname </span> </div>
-                            <div style="color:#c43032;font-weight: bold;font-size: 26px;"> sanpadeal price: </div>
+                            <div style="color:#c43032;font-weight: bold;">By <span style="color:black;font-weight: normal;" th:text="${product.businessProfile.name}"> bizname </span> </div>
+                            <div style="color:#c43032;font-weight: bold;font-size: 26px;"> snapadeal price: </div>
                             <div>
 
                                 <span class="price_snapdealsale" th:inline="text">$[[${#numbers.formatDecimal(product.salePrice, 0, 'COMMA', 2, 'POINT')}]]</span>
