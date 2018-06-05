@@ -130,7 +130,7 @@
 
                                 <span class="price_snapdealsale" th:inline="text">$[[${#numbers.formatDecimal(product.salePrice, 0, 'COMMA', 2, 'POINT')}]]</span>
 
-                            <div><button class="btn  btn-sm" type="button" style="background-color:#c43032;color:rgba(248,247,247,0.76);"><strong>Reserve Now</strong></button></div>
+                            <div><button class="btn  btn-sm m-b-1pc changeContent" type="button" style="background-color:#c43032;color:rgba(248,247,247,0.76);" data-toggle="modal" data-target="#reserve-now" ><strong>Reserve Now</strong></button></div>
                             <div style="font-weight: bold;">regular price: <span class="price_snapdeallist" th:inline="text">$[[${#numbers.formatDecimal(product.listPrice, 0, 'COMMA', 2, 'POINT')}]]</span></div>
                             <div>&nbsp;</div>
                             </div>
@@ -139,10 +139,54 @@
             </div>
         </section>
     </main>
+    <div class="modal fade bd-example-modal-lg" id="reserve-now" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Kothu Parota</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="container-fluid">
+                                <div>
+                                    <div>
+                                        <div class="item">
+
+                                            <img width="300" height="250" class="img-fluid rounded mx-auto d-block float-left" src="http://res.cloudinary.com/dlbwgbupa/image/upload/v1528157080/eqzqaavz0owsmhl2ikyi.jpg">
+                                            <span class="notify-badge">Only $2.00</span>
+                                        </div>
+
+                                        <div>
+                                            <h4 class="card-title" style="color:#c43032;">By: Chennai Tiffins</h4>
+                                            <p class="card-text" style="color:#00;">Kothu parotta is a delicacy popular in Virudhunagar, the South Indian state of Tamil Nadu. It is made using parotta, egg, meat, and salna, a spicy sauce. Other variants of kothu parotta are Muttai kothu parotta, chilli parotta</p>
+                                        </div>
+                                        <div style="color:#c43032;font-weight: bold;font-size: 16px;"> snapadeal price: <span class="price_snapdealsale_modal">$2.00</span> </div>
+                                        <div style="font-weight: bold;">regular price: <span class="price_snapdeallist_modal">$10.00</span></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+
     <footer class="page-footer dark" style="background-color:#c43032;padding-top:10px;"><div style="text-align:center;color:white;"><i class="far fa-copyright"></i>2018 Snap-A-Deal</div></footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/script.min.js"></script>
+
+
 </body>
 
 </html>
