@@ -4,6 +4,7 @@ import com.snapadeal.constants.SnapADealConstants;
 import com.snapadeal.entity.BusinessProfile;
 import com.snapadeal.entity.Location;
 import com.snapadeal.entity.Product;
+import com.snapadeal.entity.ReservationOrder;
 import com.snapadeal.entity.enums.Category;
 import com.snapadeal.exceptions.BusinessProfileException;
 import com.snapadeal.form.LoginForm;
@@ -308,5 +309,33 @@ public class SnapADealController implements SnapADealConstants
         this.productListService = productListService;
     }
 
+    @RequestMapping(value="/admin/reserve", method = RequestMethod.POST)
+    public String reservePOST(@Valid @ModelAttribute("reservationOrder") ReservationOrder reservationOrder, BindingResult result,
+                              Model model, HttpServletRequest pRequest)
+    {
+        BusinessProfile businessProfile = snapADealServices.getCurrentBusinessUser(false);
+        System.out.println("SnapADealController:addProductsPOST() - Creating Order for Product --> "+reservationOrder.getProductId());
+
+        if (result.hasErrors()) {
+            model.addAttribute("error", true);
+            System.out.println("SnapADealController:addProductsPOST() - Error --> "+result.toString());
+            model.addAttribute("reservationOrder",reservationOrder);
+            return "service-page";
+        }
+
+        try {
+            reservationOrder = snapADealServices.placeOrder(reservationOrder);
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", true);
+            model.addAttribute("reservationOrder",reservationOrder);
+            return "sadmin/add-products";
+        }
+
+        model.addAttribute("reservationOrder",reservationOrder);
+        model.addAttribute("orderPlaced",true);
+
+        return "service-page";
+    }
 
 }
