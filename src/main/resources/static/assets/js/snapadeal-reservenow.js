@@ -27,7 +27,15 @@ $.ajax({
       modal.find('.notify-badge').text('$ '+data.salePrice)
       modal.find('#productId').val(data.id)
 
+      var maxQuantityPerCustomer = data.maxQuantityPerCustomer;
 
+      var optionsDiv;
+      for(i=1;i<=maxQuantityPerCustomer;i++)
+      {
+        optionsDiv = optionsDiv + '<option value="'+i+'">'+i+'</option>'
+      }
+
+      $("#quantity").append(optionsDiv);
 
    //   modal.find('.modal-body input').val(recipient)
     });

@@ -68,7 +68,6 @@ public class BusinessProfile {
                 ", website='" + website + '\'' +
                 ", publicImageId='" + publicImageId + '\'' +
                 ", category=" + category +
-                ", productList=" + productList +
                 '}';
     }
 

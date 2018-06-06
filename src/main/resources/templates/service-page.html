@@ -189,17 +189,18 @@
                                             <div class="form-group col-md-2">
 
                                                 <select class="form-control" name="quantity" id="quantity" th:value="${reservationOrder.quantity}">
-                                                    <option selected>Qty</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-                                                    <option>10</option>
+                                                    <option value="default" selected>Qty</option>
+                                                    <!--<option th:each="i : ${#numbers.sequence( 1, 100)}"-->
+                                                    <!--<option>1</option>-->
+                                                    <!--<option>2</option>-->
+                                                    <!--<option>3</option>-->
+                                                    <!--<option>4</option>-->
+                                                    <!--<option>5</option>-->
+                                                    <!--<option>6</option>-->
+                                                    <!--<option>7</option>-->
+                                                    <!--<option>8</option>-->
+                                                    <!--<option>9</option>-->
+                                                    <!--<option>10</option>-->
                                                 </select>
                                             </div>
 
