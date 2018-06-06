@@ -44,9 +44,35 @@ public class Product {
 
     private int reservationHoldTimeInHours;
 
+    private String creationTime;
+
     @DBRef
     @JsonBackReference
     private BusinessProfile businessProfile;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", primaryImage='" + primaryImage + '\'' +
+                ", additionalImages=" + additionalImages +
+                ", totalQuantity=" + totalQuantity +
+                ", maxQuantityPerCustomer=" + maxQuantityPerCustomer +
+                ", listPrice=" + listPrice +
+                ", salePrice=" + salePrice +
+                ", discount='" + discount + '\'' +
+                ", tags=" + tags +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", numberOfViews=" + numberOfViews +
+                ", publicImageId='" + publicImageId + '\'' +
+                ", reservationHoldTimeInHours=" + reservationHoldTimeInHours +
+                ", creationTime='" + creationTime + '\'' +
+                ", businessProfile=" + businessProfile +
+                '}';
+    }
 
     public Product() {
         this.id = id;
@@ -66,6 +92,7 @@ public class Product {
         this.businessProfile = businessProfile;
         this.publicImageId = publicImageId;
         this.reservationHoldTimeInHours = reservationHoldTimeInHours;
+        this.creationTime = creationTime;
     }
 
     public String getPublicImageId() {
@@ -188,31 +215,21 @@ public class Product {
         return Timestamp.valueOf(endTime);
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
+    public Timestamp getCreationTime() {
+        if(null!=creationTime) {
+            return Timestamp.valueOf(creationTime);
+        }
+        else {
+            return getStartTime();
+        }
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", primaryImage='" + primaryImage + '\'' +
-                ", additionalImages=" + additionalImages +
-                ", totalQuantity=" + totalQuantity +
-                ", maxQuantityPerCustomer=" + maxQuantityPerCustomer +
-                ", listPrice=" + listPrice +
-                ", salePrice=" + salePrice +
-                ", discount='" + discount + '\'' +
-                ", tags=" + tags +
-                ", startTime='" + startTime + '\'' +
-                ", endTime='" + endTime + '\'' +
-                ", numberOfViews=" + numberOfViews +
-                ", publicImageId='" + publicImageId + '\'' +
-                ", reservationHoldTimeInHours=" + reservationHoldTimeInHours +
-                ", businessProfile=" + businessProfile +
-                '}';
+    public void setCreationTime(String creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public int getReservationHoldTimeInHours() {

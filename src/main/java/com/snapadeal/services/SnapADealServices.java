@@ -199,6 +199,7 @@ public class SnapADealServices implements SnapADealConstants{
     public void createProduct(BusinessProfile businessProfile, Product product) {
 
         product.setBusinessProfile(businessProfile);
+        product.setCreationTime(String.valueOf(new Timestamp(System.currentTimeMillis())));
         productRepository.save(product);
 
         List<Product> products = businessProfile.getProductList();

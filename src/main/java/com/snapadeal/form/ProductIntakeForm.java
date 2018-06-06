@@ -7,35 +7,35 @@ import java.util.List;
 
 public class ProductIntakeForm {
 
-    @NotNull(message = "Name must not be null")
+    @NotNull(message = "Please enter a valid Name")
     private String name;
 
-    @NotNull(message = "Description must not be null")
+    @NotNull(message = "Please enter a valid Description")
     private String description;
 
-    @NotNull(message = "Image must not be null")
+    @NotNull(message = "Please upload a valid Image")
     private MultipartFile primaryImage;
 
     private List<String> additionalImages;
 
-    @NotNull(message = "Total Quantity must not be null")
+    @NotNull(message = "Please enter a valid Total Quantity")
     private int totalQuantity;
 
-    @NotNull(message = "Max Quantity must not be null")
+    @NotNull(message = "Please enter a valid Max Quantity per Customer")
     private int maxQuantityPerCustomer;
 
-    @NotNull(message = "List Price must not be null")
+    @NotNull(message = "Please enter a valid List Price")
     private double listPrice;
 
-    @NotNull(message = "Sale Price must not be null")
+    @NotNull(message = "Please enter a valid Sale Price")
     private double salePrice;
 
     private String tags;
 
-    @NotNull(message = "Start Time must not be null")
+    @NotNull(message = "Please enter a valid Start Time")
     private String startTime;
 
-    @NotNull(message = "End Time must not be null")
+    @NotNull(message = "Please enter a valid End Time")
     private String endTime;
 
     private String id;
