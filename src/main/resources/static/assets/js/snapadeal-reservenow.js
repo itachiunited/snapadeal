@@ -5,6 +5,11 @@
      modal.find('.card-text').text('')
      modal.find('#saleprice-modal').text('')
       modal.find('.notify-badge').text('')
+     $(this).find('form')[0].reset();
+     $("#reserveOrder").css('background-color','#c43032');
+     $("#reserveOrder").html('Reserve Now');
+     $("#reserveOrder").prop('disabled',false);
+     $("#reserve-response").html('');
   var button = $(event.relatedTarget) // Button that triggered the modal
 
   var recipient = button.data('send-to-modal')
