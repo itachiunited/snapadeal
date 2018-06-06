@@ -201,8 +201,20 @@ public class SnapADealController implements SnapADealConstants
         System.out.println("SnapADealController:businessLoginPOST() - Business Login for --> "+loginForm.getLogin());
 
         if (result.hasErrors()) {
-            model.addAttribute("error", true);
             System.out.println("SnapADealController:businessLoginPOST() - Error --> "+result.toString());
+
+            List errors = new ArrayList();
+
+            for(Object error: result.getAllErrors())
+            {
+                if(error instanceof FieldError)
+                {
+                    FieldError fieldError = (FieldError)error;
+                    errors.add(fieldError.getDefaultMessage());
+                }
+            }
+            model.addAttribute("error", true);
+            model.addAttribute("errors",errors);
             model.addAttribute("loginForm",loginForm);
             model.addAttribute("categories", Category.values());
             return "sadmin/business-login";
@@ -211,8 +223,14 @@ public class SnapADealController implements SnapADealConstants
         try {
             snapADealServices.loginBusinessAccount(loginForm);
         } catch (BusinessProfileException e) {
-            e.printStackTrace();
+            System.out.println("SnapADealController:businessLoginPOST() - BusinessProfileException --> "+e.getMessage());
+
+            List errors = new ArrayList();
+
+            errors.add(e.getMessage());
+
             model.addAttribute("error", true);
+            model.addAttribute("errors",errors);
             model.addAttribute("loginForm",loginForm);
             model.addAttribute("categories", Category.values());
             return "sadmin/business-login";

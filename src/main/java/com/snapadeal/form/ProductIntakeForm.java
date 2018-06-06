@@ -2,40 +2,41 @@ package com.snapadeal.form;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class ProductIntakeForm {
 
-    @NotNull(message = "Please enter a valid Name")
+    @NotEmpty(message = "Please enter a valid Name")
     private String name;
 
-    @NotNull(message = "Please enter a valid Description")
+    @NotEmpty(message = "Please enter a valid Description")
     private String description;
 
-    @NotNull(message = "Please upload a valid Image")
+    @NotEmpty(message = "Please upload a valid Image")
     private MultipartFile primaryImage;
 
     private List<String> additionalImages;
 
-    @NotNull(message = "Please enter a valid Total Quantity")
+    @NotEmpty(message = "Please enter a valid Total Quantity")
     private int totalQuantity;
 
-    @NotNull(message = "Please enter a valid Max Quantity per Customer")
+    @NotEmpty(message = "Please enter a valid Max Quantity per Customer")
     private int maxQuantityPerCustomer;
 
-    @NotNull(message = "Please enter a valid List Price")
+    @NotEmpty(message = "Please enter a valid List Price")
     private double listPrice;
 
-    @NotNull(message = "Please enter a valid Sale Price")
+    @NotEmpty(message = "Please enter a valid Sale Price")
     private double salePrice;
 
     private String tags;
 
-    @NotNull(message = "Please enter a valid Start Time")
+    @NotEmpty(message = "Please enter a valid Start Time")
     private String startTime;
 
-    @NotNull(message = "Please enter a valid End Time")
+    @NotEmpty(message = "Please enter a valid End Time")
     private String endTime;
 
     private String id;

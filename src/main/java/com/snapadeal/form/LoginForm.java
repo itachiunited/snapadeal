@@ -1,13 +1,12 @@
 package com.snapadeal.form;
 
-
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
 
 public class LoginForm {
-    @NotEmpty
+    @NotEmpty(message="Please enter a valid Login")
     private String login;
 
-    @NotEmpty
+    @NotEmpty(message = "Please enter a valid Password")
     private String password;
 
 
