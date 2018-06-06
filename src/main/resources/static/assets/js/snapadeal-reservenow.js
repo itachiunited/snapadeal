@@ -29,12 +29,13 @@ $.ajax({
 
       var maxQuantityPerCustomer = data.maxQuantityPerCustomer;
 
-      var optionsDiv;
+      var optionsDiv='';
       for(i=1;i<=maxQuantityPerCustomer;i++)
       {
         optionsDiv = optionsDiv + '<option value="'+i+'">'+i+'</option>'
       }
 
+      $("#quantity option:gt(0)").remove();
       $("#quantity").append(optionsDiv);
 
    //   modal.find('.modal-body input').val(recipient)
