@@ -9,6 +9,7 @@ import com.snapadeal.form.ProductIntakeForm;
 import com.snapadeal.services.ImageService;
 import com.snapadeal.services.ProductListService;
 import com.snapadeal.services.SnapADealServices;
+import org.apache.poi.util.StringUtil;
 import org.bouncycastle.ocsp.Req;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.snapadeal.services.SnapADealServices;
@@ -20,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,10 +120,34 @@ public class SnapADealController implements SnapADealConstants
                                   Model model, HttpServletRequest pRequest, @RequestParam("logoImage") MultipartFile pLogoImage)
     {
         System.out.println("SnapADealController:addBusinessPOST() - Creating Business Profile For --> "+businessProfile.getLogin());
+        List errors = new ArrayList();
 
-        if (result.hasErrors()) {
-            model.addAttribute("error", true);
+        if(null == pRequest.getParameter("latitude") || "".equalsIgnoreCase(pRequest.getParameter("latitude")))
+        {
+            errors.add("Please enter a valid Store Location");
+        }
+
+        if (result.hasErrors() || errors.size()>0) {
+
             System.out.println("SnapADealController:addBusinessPOST() - Error --> "+result.toString());
+
+            for(Object error: result.getAllErrors())
+            {
+                if(error instanceof FieldError)
+                {
+                    FieldError fieldError = (FieldError)error;
+
+                    if("category".equalsIgnoreCase(fieldError.getField()))
+                    {
+                        errors.add("Please select a Category");
+                    }
+                    else {
+                        errors.add(fieldError.getDefaultMessage());
+                    }
+                }
+            }
+            model.addAttribute("error", true);
+            model.addAttribute("errors",errors);
             model.addAttribute("businessProfile",businessProfile);
             model.addAttribute("categories", Category.values());
             return "sadmin/add-business";

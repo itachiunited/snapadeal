@@ -13,6 +13,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -22,13 +23,13 @@ public class BusinessProfile {
     private @Id @Generated String id;
 
     @Valid
-    @NotNull(message = "Login must not be null")
+    @NotEmpty(message = "Please enter a valid Login")
     private String login;
 
-    @NotNull(message = "Business Name must not be null")
+    @NotEmpty(message = "Please enter a valid Business Name")
     private String name;
 
-    @NotNull(message = "Owner Name must not be null")
+    @NotEmpty(message = "Please enter a valid Owner Name")
     private String businessOwnerName;
 
     @ValidPassword
@@ -36,10 +37,10 @@ public class BusinessProfile {
 
     private GeoJsonPoint location;
 
-    @NotNull(message = "Phone Number must not be null")
+    @NotEmpty(message = "Please enter a valid Phone Number")
     private String phoneNumber;
 
-    @NotNull(message = "Description must not be null")
+    @NotEmpty(message = "Please enter a valid Description")
     private String description;
 
     private String logo;

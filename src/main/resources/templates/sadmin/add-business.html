@@ -48,6 +48,13 @@
                     <h2 class="text-info">Add Business</h2>
                 </div>
                 <form th:action="@{/admin/add-business}" th:object="${businessProfile}" action="/admin/add-business" method="post" enctype="multipart/form-data">
+                    <div th:if="${error}">
+                        <div class="alert alert-danger" >
+                            <ul style="margin-bottom:0">
+                                <li th:each="err : ${errors}" th:text="${err}"/>
+                            </ul>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="category">Category</label>
                         <select class="form-control" name="category" id="category">

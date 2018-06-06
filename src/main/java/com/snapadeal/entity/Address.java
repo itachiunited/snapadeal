@@ -3,6 +3,7 @@ package com.snapadeal.entity;
 import lombok.Generated;
 
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 public class Address {
 
