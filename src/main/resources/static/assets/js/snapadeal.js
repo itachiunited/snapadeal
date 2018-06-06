@@ -19,7 +19,7 @@
         // Create the autocomplete object, restricting the search to geographical
         // location types.
         autocomplete = new google.maps.places.Autocomplete(
-            /** @type {!HTMLInputElement} */(document.getElementById('address')),
+            /** @type {!HTMLInputElement} */(document.getElementById('mustnotbenamed')),
             {types: ['geocode']});
 
         // When the user selects an address from the dropdown, populate the address
@@ -72,3 +72,14 @@
           });
         }
       }
+
+//      var input = document.getElementById('mustnotbenamed');
+//        google.maps.event.addDomListener(input, 'keydown', function(event) {
+//          if (event.keyCode === 13) {
+//              event.preventDefault();
+//          }
+//        });
+
+$('#mustnotbenamed').keydown(function (e) {
+  if (e.which == 13 && $('.pac-container:visible').length) return false;
+});
