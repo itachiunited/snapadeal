@@ -14,22 +14,22 @@ public class ProductIntakeForm {
     @NotEmpty(message = "Please enter a valid Description")
     private String description;
 
-    @NotEmpty(message = "Please upload a valid Image")
+    @NotNull(message = "Please upload a valid Image")
     private MultipartFile primaryImage;
 
     private List<String> additionalImages;
 
     @NotEmpty(message = "Please enter a valid Total Quantity")
-    private int totalQuantity;
+    private String totalQuantity;
 
     @NotEmpty(message = "Please enter a valid Max Quantity per Customer")
-    private int maxQuantityPerCustomer;
+    private String maxQuantityPerCustomer;
 
     @NotEmpty(message = "Please enter a valid List Price")
-    private double listPrice;
+    private String listPrice;
 
     @NotEmpty(message = "Please enter a valid Sale Price")
-    private double salePrice;
+    private String salePrice;
 
     private String tags;
 
@@ -114,35 +114,35 @@ public class ProductIntakeForm {
         this.additionalImages = additionalImages;
     }
 
-    public int getTotalQuantity() {
+    public String getTotalQuantity() {
         return totalQuantity;
     }
 
-    public void setTotalQuantity(int totalQuantity) {
+    public void setTotalQuantity(String totalQuantity) {
         this.totalQuantity = totalQuantity;
     }
 
-    public int getMaxQuantityPerCustomer() {
+    public String getMaxQuantityPerCustomer() {
         return maxQuantityPerCustomer;
     }
 
-    public void setMaxQuantityPerCustomer(int maxQuantityPerCustomer) {
+    public void setMaxQuantityPerCustomer(String maxQuantityPerCustomer) {
         this.maxQuantityPerCustomer = maxQuantityPerCustomer;
     }
 
-    public double getListPrice() {
+    public String getListPrice() {
         return listPrice;
     }
 
-    public void setListPrice(double listPrice) {
+    public void setListPrice(String listPrice) {
         this.listPrice = listPrice;
     }
 
-    public double getSalePrice() {
+    public String getSalePrice() {
         return salePrice;
     }
 
-    public void setSalePrice(double salePrice) {
+    public void setSalePrice(String salePrice) {
         this.salePrice = salePrice;
     }
 

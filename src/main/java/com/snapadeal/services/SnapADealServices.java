@@ -227,10 +227,10 @@ public class SnapADealServices implements SnapADealConstants{
 
         product.setName(productIntakeForm.getName());
         product.setDescription(productIntakeForm.getDescription());
-        product.setTotalQuantity(productIntakeForm.getTotalQuantity());
-        product.setMaxQuantityPerCustomer(productIntakeForm.getMaxQuantityPerCustomer());
-        product.setListPrice(productIntakeForm.getListPrice());
-        product.setSalePrice(productIntakeForm.getSalePrice());
+        product.setTotalQuantity(Integer.parseInt(productIntakeForm.getTotalQuantity()));
+        product.setMaxQuantityPerCustomer(Integer.parseInt(productIntakeForm.getMaxQuantityPerCustomer()));
+        product.setListPrice(Double.parseDouble(productIntakeForm.getListPrice()));
+        product.setSalePrice(Double.parseDouble(productIntakeForm.getSalePrice()));
 
         if(null!=productIntakeForm.getTags()) {
             List<String> tagList = new ArrayList<String>(Arrays.asList(productIntakeForm.getTags().split(",")));

@@ -48,6 +48,13 @@
                 <h2 class="text-info">Add Products</h2>
             </div>
             <form th:action="@{/admin/add-products}" th:object="${productIntakeForm}" action="/admin/add-products" enctype="multipart/form-data" method="post">
+                <div th:if="${error}">
+                    <div class="alert alert-danger" >
+                        <ul style="margin-bottom:0">
+                            <li th:each="err : ${errors}" th:text="${err}"/>
+                        </ul>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label>Product Name</label>
                     <input class="form-control" name="name" id="name" type="text" th:value="${productIntakeForm.name}">
@@ -58,11 +65,11 @@
                 </div>
                 <div class="form-group">
                     <label>Total Quantity</label>
-                    <input class="form-control" name="totalQuantity" id="totalQuantity" type="text" th:value="${productIntakeForm.totalQuantity}">
+                    <input class="form-control" name="totalQuantity" id="totalQuantity" type="number" th:value="${productIntakeForm.totalQuantity}">
                 </div>
                 <div class="form-group">
                     <label>Max Quantity Per Customer</label>
-                    <input class="form-control" name="maxQuantityPerCustomer" id="maxQuantityPerCustomer" th:value="${productIntakeForm.maxQuantityPerCustomer}" type="text">
+                    <input class="form-control" name="maxQuantityPerCustomer" id="maxQuantityPerCustomer" th:value="${productIntakeForm.maxQuantityPerCustomer}" type="number">
                 </div>
                 <div class="form-group">
                     <label>List Price</label>

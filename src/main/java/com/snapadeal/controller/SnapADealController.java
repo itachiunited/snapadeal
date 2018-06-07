@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -259,10 +260,26 @@ public class SnapADealController implements SnapADealConstants
     {
         BusinessProfile businessProfile = snapADealServices.getCurrentBusinessUser(false);
         System.out.println("SnapADealController:addProductsPOST() - Creating Product --> "+productIntakeForm.getName()+" for Business Profile --> "+businessProfile.getLogin());
-
-        if (result.hasErrors()) {
-            model.addAttribute("error", true);
+        System.out.println("time -->"+productIntakeForm.toString());
+        List errors = new ArrayList();
+        if(null==productIntakeForm.getPrimaryImage() || productIntakeForm.getPrimaryImage().isEmpty())
+        {
+            errors.add("Please upload a valid Product Image");
+        }
+        if (result.hasErrors() || errors.size()>0) {
             System.out.println("SnapADealController:addProductsPOST() - Error --> "+result.toString());
+
+            for(Object error: result.getAllErrors())
+            {
+                if(error instanceof FieldError)
+                {
+                    FieldError fieldError = (FieldError)error;
+                    errors.add(fieldError.getDefaultMessage());
+                }
+            }
+            model.addAttribute("error", true);
+            model.addAttribute("errors",errors);
+
             model.addAttribute("productIntakeForm",productIntakeForm);
             return "sadmin/add-products";
         }
@@ -272,7 +289,12 @@ public class SnapADealController implements SnapADealConstants
             snapADealServices.createProduct(businessProfile, product);
         } catch (Exception e) {
             e.printStackTrace();
+
+            errors.add(e.getMessage());
+
             model.addAttribute("error", true);
+            model.addAttribute("errors",errors);
+
             model.addAttribute("productIntakeForm",productIntakeForm);
             return "sadmin/add-products";
         }
@@ -303,8 +325,21 @@ public class SnapADealController implements SnapADealConstants
         System.out.println("SnapADealController:editProductPOST() - Editing Product --> "+productIntakeForm.toString()+" for Business Profile --> "+businessProfile.getLogin());
 
         if (result.hasErrors()) {
-            model.addAttribute("error", true);
             System.out.println("SnapADealController:editProductPOST() - Error --> "+result.toString());
+
+            List errors = new ArrayList();
+
+            for(Object error: result.getAllErrors())
+            {
+                if(error instanceof FieldError)
+                {
+                    FieldError fieldError = (FieldError)error;
+                    errors.add(fieldError.getDefaultMessage());
+                }
+            }
+            model.addAttribute("error", true);
+            model.addAttribute("errors",errors);
+
             model.addAttribute("productIntakeForm",productIntakeForm);
             return "sadmin/add-products";
         }
