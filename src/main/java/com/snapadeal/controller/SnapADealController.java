@@ -274,21 +274,22 @@ public class SnapADealController implements SnapADealConstants
         List errors = new ArrayList();
         if(null==productIntakeForm.getPrimaryImage() || productIntakeForm.getPrimaryImage().isEmpty())
         {
+            model.addAttribute("imageError",true);
             errors.add("Please upload a valid Product Image");
         }
         if (result.hasErrors() || errors.size()>0) {
             System.out.println("SnapADealController:addProductsPOST() - Error --> "+result.toString());
 
-            for(Object error: result.getAllErrors())
-            {
-                if(error instanceof FieldError)
-                {
-                    FieldError fieldError = (FieldError)error;
-                    errors.add(fieldError.getDefaultMessage());
-                }
-            }
-            model.addAttribute("error", true);
-            model.addAttribute("errors",errors);
+//            for(Object error: result.getAllErrors())
+//            {
+//                if(error instanceof FieldError)
+//                {
+//                    FieldError fieldError = (FieldError)error;
+//                    errors.add(fieldError.getDefaultMessage());
+//                }
+//            }
+//            model.addAttribute("error", true);
+//            model.addAttribute("errors",errors);
 
             model.addAttribute("productIntakeForm",productIntakeForm);
             return "sadmin/add-products";
