@@ -131,29 +131,29 @@ public class SnapADealController implements SnapADealConstants
         if(null == pRequest.getParameter("latitude") || "".equalsIgnoreCase(pRequest.getParameter("latitude")))
         {
             errors.add("Please enter a valid Store Location");
+            model.addAttribute("locationError",true);
         }
 
         if (result.hasErrors() || errors.size()>0) {
 
             System.out.println("SnapADealController:addBusinessPOST() - Error --> "+result.toString());
 
-            for(Object error: result.getAllErrors())
-            {
-                if(error instanceof FieldError)
-                {
-                    FieldError fieldError = (FieldError)error;
-
-                    if("category".equalsIgnoreCase(fieldError.getField()))
-                    {
-                        errors.add("Please select a Category");
-                    }
-                    else {
-                        errors.add(fieldError.getDefaultMessage());
-                    }
-                }
-            }
-            model.addAttribute("error", true);
-            model.addAttribute("errors",errors);
+//            for(Object error: result.getAllErrors())
+//            {
+//                if(error instanceof FieldError)
+//                {
+//                    FieldError fieldError = (FieldError)error;
+//
+//                    if("category".equalsIgnoreCase(fieldError.getField()))
+//                    {
+//                        errors.add("Please select a Category");
+//                    }
+//                    else {
+//                        errors.add(fieldError.getDefaultMessage());
+//                    }
+//                }
+//            }
+//
             model.addAttribute("businessProfile",businessProfile);
             model.addAttribute("categories", Category.values());
             return "sadmin/add-business";
@@ -178,6 +178,7 @@ public class SnapADealController implements SnapADealConstants
         } catch (BusinessProfileException e) {
             e.printStackTrace();
             model.addAttribute("error", true);
+            model.addAttribute("errors",e.getMessage());
             model.addAttribute("businessProfile",businessProfile);
             model.addAttribute("categories", Category.values());
             return "sadmin/add-business";
@@ -211,16 +212,16 @@ public class SnapADealController implements SnapADealConstants
 
             List errors = new ArrayList();
 
-            for(Object error: result.getAllErrors())
-            {
-                if(error instanceof FieldError)
-                {
-                    FieldError fieldError = (FieldError)error;
-                    errors.add(fieldError.getDefaultMessage());
-                }
-            }
-            model.addAttribute("error", true);
-            model.addAttribute("errors",errors);
+//            for(Object error: result.getAllErrors())
+//            {
+//                if(error instanceof FieldError)
+//                {
+//                    FieldError fieldError = (FieldError)error;
+//                    errors.add(fieldError.getDefaultMessage());
+//                }
+//            }
+//            model.addAttribute("error", true);
+//            model.addAttribute("errors",errors);
             model.addAttribute("loginForm",loginForm);
             model.addAttribute("categories", Category.values());
             return "sadmin/business-login";

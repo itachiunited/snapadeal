@@ -61,35 +61,42 @@
                             <option value="default">Choose Category</option>
                             <option th:each="category : ${categories}" th:value="${category}" th:text="${category.value}" th:selected="${category == businessProfile.category}"></option>
                         </select>
+                        <p style="color:red" th:if="${#fields.hasErrors('category')}">Please select a Category</p>
                     </div>
                     <div class="form-group">
                         <label>Business Name</label>
                         <input class="form-control" name="name" id="name" type="text" th:value="${businessProfile.name}">
+                        <p style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                     </div>
                     <div class="form-group">
                         <label>Owner Name</label>
                         <input class="form-control" name="businessOwnerName" id="businessOwnerName" th:value="${businessProfile.businessOwnerName}" type="text">
+                        <p style="color:red" th:if="${#fields.hasErrors('businessOwnerName')}" th:errors="*{businessOwnerName}"></p>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
                         <input class="form-control" name="login" id="login" type="text" th:value="${businessProfile.login}">
+                        <p style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></p>
                     </div>
                     <div class="form-group">
                         <label>Phone Number</label>
                         <input class="form-control" name="phoneNumber" id="phoneNumber" th:value="${businessProfile.phoneNumber}" type="text" data-inputmask="'mask': '(999) 999-9999'" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}">
+                        <p style="color:red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
                     </div>
                     <div class="form-group">
                         <label>Password</label>
                         <input class="form-control" name="password" id="password" type="password">
+                        <p style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                     </div>
                     <div class="form-group">
                         <label>Business Description</label>
                         <textarea class="form-control" name="description" id="description" th:inline="text">[[${businessProfile.description?:''}]]</textarea>
+                        <p style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
                     </div>
                     <div class="form-group">
                         <label>Store Location</label>
                         <input class="form-control" name="mustnotbenamed" id="mustnotbenamed" type="text" placeholder="">
-
+                        <p style="color:red" th:if="${locationError}">Please enter a valid Store Location</p>
                         <input class="form-control" id="street_number" type="hidden">
                         <input class="form-control" id="route" type="hidden">
                         <input class="form-control" name="storeAddress.addressLine1" id="addressLine1" type="hidden">
