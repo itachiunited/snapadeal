@@ -260,7 +260,6 @@ public class SnapADealController implements SnapADealConstants
     {
         BusinessProfile businessProfile = snapADealServices.getCurrentBusinessUser(false);
         System.out.println("SnapADealController:addProductsPOST() - Creating Product --> "+productIntakeForm.getName()+" for Business Profile --> "+businessProfile.getLogin());
-        System.out.println("time -->"+productIntakeForm.toString());
         List errors = new ArrayList();
         if(null==productIntakeForm.getPrimaryImage() || productIntakeForm.getPrimaryImage().isEmpty())
         {
@@ -312,6 +311,22 @@ public class SnapADealController implements SnapADealConstants
         {
             return "redirect:/admin/business-login";
         }
+
+        if(null!=httpSession.getAttribute("error") && (boolean)httpSession.getAttribute("error"))
+        {
+            System.out.println("SnapADealController:editProductGET() - Error Scenario in Edit Product --> "+productId);
+
+            model.addAttribute("error", true);
+            model.addAttribute("errors", httpSession.getAttribute("errors"));
+            model.addAttribute("productIntakeForm",httpSession.getAttribute("productIntakeForm"));
+
+            httpSession.removeAttribute("error");
+            httpSession.removeAttribute("errors");
+            httpSession.removeAttribute("productIntakeForm");
+            model.addAttribute("product",snapADealServices.findProductById(productId));
+
+            return "sadmin/edit-product";
+        }
         model.addAttribute("productIntakeForm",new ProductIntakeForm());
         model.addAttribute("product",snapADealServices.findProductById(productId));
         return "sadmin/edit-product";
@@ -337,11 +352,11 @@ public class SnapADealController implements SnapADealConstants
                     errors.add(fieldError.getDefaultMessage());
                 }
             }
-            model.addAttribute("error", true);
-            model.addAttribute("errors",errors);
+            httpSession.setAttribute("error", true);
+            httpSession.setAttribute("errors",errors);
 
-            model.addAttribute("productIntakeForm",productIntakeForm);
-            return "sadmin/add-products";
+            httpSession.setAttribute("productIntakeForm",productIntakeForm);
+            return "redirect:/admin/edit-product?id="+productIntakeForm.getId();
         }
 
         try {
@@ -349,9 +364,14 @@ public class SnapADealController implements SnapADealConstants
             snapADealServices.editProduct(product);
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("error", true);
-            model.addAttribute("productIntakeForm",productIntakeForm);
-            return "sadmin/add-products";
+            List errors = new ArrayList();
+
+            errors.add(e.getMessage());
+
+            httpSession.setAttribute("error", true);
+            httpSession.setAttribute("errors",errors);
+            httpSession.setAttribute("productIntakeForm",productIntakeForm);
+            return "redirect:/admin/edit-product?id="+productIntakeForm.getId();
         }
 
         return "redirect:/admin/products";
