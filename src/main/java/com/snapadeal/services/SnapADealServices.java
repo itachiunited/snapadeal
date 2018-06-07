@@ -32,6 +32,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
@@ -345,5 +346,42 @@ public class SnapADealServices implements SnapADealConstants{
         System.out.println("Reservation Order --> "+reservationOrder.toString());
 
         return reservationOrder;
+    }
+
+    public void updateBusinessProfile(BusinessProfile pBusinessProfile) {
+
+        DBObject update = getDbObject(pBusinessProfile);
+        mongoTemplate.updateFirst(query(where("id").is(pBusinessProfile.getId())), Update.fromDocument(new Document("$set", update)).push("events", pBusinessProfile), BusinessProfile.class);
+
+        System.out.println("BusinessProfile --> "+pBusinessProfile);
+
+    }
+
+
+    public BusinessProfile updatePassword(BusinessProfile businessProfile) throws BusinessProfileException {
+
+        BusinessProfile vBusinessProfile = null;
+
+        if(!StringUtils.isEmpty(businessProfile.getLogin())){
+            vBusinessProfile = businessRepository.findByLogin(businessProfile.getLogin());
+        }else if(!StringUtils.isEmpty(businessProfile.getId())){
+            vBusinessProfile = businessRepository.findById(businessProfile.getId()).get();
+        }
+
+        if(vBusinessProfile != null) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+            vBusinessProfile.setPassword(passwordEncoder.encode(businessProfile.getPassword()));
+
+            updateBusinessProfile(vBusinessProfile);
+
+            setSessionContextForBusinessUser(vBusinessProfile.getLogin(), vBusinessProfile.getPassword(), vBusinessProfile);
+
+            System.out.println("SnapADealServices:createBusinessAccount() - Business Profile Created for User --> " + businessProfile.getLogin() + " with ID --> " + businessProfile.getId());
+        }
+        else {
+            throw new BusinessProfileException("Account Unavailable for the login specified");
+        }
+        return businessProfile;
     }
 }

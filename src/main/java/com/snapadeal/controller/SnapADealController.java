@@ -4,8 +4,10 @@ import com.snapadeal.constants.SnapADealConstants;
 import com.snapadeal.entity.*;
 import com.snapadeal.entity.enums.Category;
 import com.snapadeal.exceptions.BusinessProfileException;
+import com.snapadeal.form.ChangePasswordForm;
 import com.snapadeal.form.LoginForm;
 import com.snapadeal.form.ProductIntakeForm;
+import com.snapadeal.form.UpdateBusinessForm;
 import com.snapadeal.services.ImageService;
 import com.snapadeal.services.ProductListService;
 import com.snapadeal.services.SnapADealServices;
@@ -18,10 +20,13 @@ import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -223,6 +228,11 @@ public class SnapADealController implements SnapADealConstants
 
         try {
             snapADealServices.loginBusinessAccount(loginForm);
+            List<Product> businessProducts = snapADealServices.getCurrentBusinessUser(false).getProductList();
+            if(businessProducts == null || businessProducts.isEmpty()) {
+                model.addAttribute("productIntakeForm",new ProductIntakeForm());
+                return "redirect:/admin/add-products";
+            }
         } catch (BusinessProfileException e) {
             System.out.println("SnapADealController:businessLoginPOST() - BusinessProfileException --> "+e.getMessage());
 
@@ -237,7 +247,7 @@ public class SnapADealController implements SnapADealConstants
             return "sadmin/business-login";
         }
 
-        return "redirect:/admin/add-products";
+        return "redirect:/admin/products";
     }
 
     @RequestMapping(value="/admin/add-products", method = RequestMethod.GET)
@@ -256,7 +266,7 @@ public class SnapADealController implements SnapADealConstants
 
     @RequestMapping(value="/admin/add-products", method = RequestMethod.POST)
     public String addProductsPOST(@Valid @ModelAttribute("productIntakeForm") ProductIntakeForm productIntakeForm, BindingResult result,
-                                    Model model, HttpServletRequest pRequest)
+                                  Model model, HttpServletRequest pRequest)
     {
         BusinessProfile businessProfile = snapADealServices.getCurrentBusinessUser(false);
         System.out.println("SnapADealController:addProductsPOST() - Creating Product --> "+productIntakeForm.getName()+" for Business Profile --> "+businessProfile.getLogin());
@@ -396,7 +406,7 @@ public class SnapADealController implements SnapADealConstants
     @RequestMapping(value="/reserve", method = RequestMethod.POST)
     @ResponseBody
     public Map reservePOST(@Valid @ModelAttribute("reservationOrder") ReservationOrder reservationOrder, BindingResult result,
-                              Model model, HttpServletRequest pRequest)
+                           Model model, HttpServletRequest pRequest)
     {
         Map responseMap = new HashMap();
         BusinessProfile businessProfile = snapADealServices.getCurrentBusinessUser(false);
@@ -422,6 +432,120 @@ public class SnapADealController implements SnapADealConstants
         responseMap.put("orderPlaced",true);
 
         return responseMap;
+    }
+
+    @RequestMapping(value="/admin/my-account", method = RequestMethod.GET)
+    public String myAccount(Model model){
+
+        model.addAttribute("categories", Category.values());
+        model.addAttribute("businessProfile",snapADealServices.getCurrentBusinessUser(true));
+
+        return "sadmin/business-profile";
+    }
+
+    @RequestMapping(value="/admin/update-password", method = RequestMethod.POST)
+    public String changePassword(@Valid @ModelAttribute("changePasswordForm") ChangePasswordForm changePasswordForm, BindingResult result,
+                                 Model model){
+
+        //pre-check validations
+        if (result.hasErrors()) {
+            model.addAttribute("error", true);
+            System.out.println("SnapADealController:editProductPOST() - Error --> "+result.toString());
+            model.addAttribute("categories", Category.values());
+            model.addAttribute("businessProfile",snapADealServices.getCurrentBusinessUser(false));
+            return "sadmin/business-profile";
+        }
+
+        //post-validation checks
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if(!StringUtils.isEmpty(changePasswordForm.getOldPassword()) &&
+                !passwordEncoder.matches(changePasswordForm.getOldPassword(), snapADealServices.getCurrentBusinessUser(false).getPassword())){
+            result.addError(new FieldError("changePasswordForm", "oldPassword", "Password is invalid."));
+        }
+
+        if(!changePasswordForm.getNewPassword().equals(changePasswordForm.getConfirmPassword())){
+            result.addError(new ObjectError("changePasswordForm", "New Password and Confirm Password must match"));
+        }
+
+        //post-check additional validations
+        if (result.hasErrors()) {
+            model.addAttribute("error", true);
+            System.out.println("SnapADealController:editProductPOST() - Error --> "+result.toString());
+            model.addAttribute("categories", Category.values());
+            model.addAttribute("businessProfile",snapADealServices.getCurrentBusinessUser(false));
+            return "sadmin/business-profile";
+        }
+
+        BusinessProfile vBusinessProfile = new BusinessProfile();
+        vBusinessProfile.setId(changePasswordForm.getProfileId());
+        vBusinessProfile.setPassword(changePasswordForm.getNewPassword());
+
+        try {
+            snapADealServices.updatePassword(vBusinessProfile);
+            model.addAttribute("status", "success");
+            model.addAttribute("message", "Password Updated Successfully.");
+        } catch (BusinessProfileException e) {
+            e.printStackTrace();
+            model.addAttribute("error", true);
+            model.addAttribute("categories", Category.values());
+            model.addAttribute("message", "Unable to upload Logo. Please try again later.");
+            return "sadmin/business-profile";
+        }
+
+        return "redirect:/admin/my-account";
+    }
+
+    @RequestMapping(value="/admin/update-business", method = RequestMethod.POST)
+    public String updateBusiness(@Valid @ModelAttribute("updateBusinessForm") UpdateBusinessForm updateBusinessForm, BindingResult result,
+                                 Model model, HttpServletRequest pRequest, @RequestParam("logoImage") MultipartFile pLogoImage){
+
+        if (result.hasErrors()) {
+            model.addAttribute("error", true);
+            System.out.println("SnapADealController:editProductPOST() - Error --> "+result.toString());
+            model.addAttribute("categories", Category.values());
+            model.addAttribute("businessProfile",snapADealServices.getCurrentBusinessUser(false));
+            return "sadmin/business-profile";
+        }
+
+        BusinessProfile vBusinessProfile = new BusinessProfile();
+
+        vBusinessProfile.setId(updateBusinessForm.getId());
+        vBusinessProfile.setName(updateBusinessForm.getName());
+        vBusinessProfile.setBusinessOwnerName(updateBusinessForm.getBusinessOwnerName());
+        vBusinessProfile.setCategory(updateBusinessForm.getCategory());
+        vBusinessProfile.setPhoneNumber(updateBusinessForm.getPhoneNumber());
+        vBusinessProfile.setDescription(updateBusinessForm.getDescription());
+        vBusinessProfile.setStoreAddress(updateBusinessForm.getStoreAddress());
+        vBusinessProfile.setStoreHours(updateBusinessForm.getStoreHours());
+        vBusinessProfile.setWebsite(updateBusinessForm.getWebsite());
+
+        if(pRequest.getParameter("latitude") != null && pRequest.getParameter("longitude") != null){
+            double lat = Double.parseDouble(pRequest.getParameter("latitude"));
+            double lon = Double.parseDouble(pRequest.getParameter("longitude"));
+            vBusinessProfile.setLocation(new GeoJsonPoint(lon, lat));
+        }
+
+        try {
+
+            if (pLogoImage != null && !pLogoImage.isEmpty()) {
+                Map<String, String> uploadResult = imageService.updateImageBytes(pLogoImage.getBytes());
+                if (uploadResult != null && uploadResult.get("secure_url") != null) {
+                    vBusinessProfile.setLogo(uploadResult.get("secure_url"));
+                }
+            }
+
+            snapADealServices.updateBusinessProfile(vBusinessProfile);
+
+        }catch(IOException e) {
+            e.printStackTrace();
+            model.addAttribute("warn", true);
+            model.addAttribute("categories", Category.values());
+            model.addAttribute("message", "Unable to upload Logo. Please try again later.");
+            return "sadmin/business-profile";
+        }
+
+
+        return "redirect:/admin/my-account";
     }
 
 }

@@ -83,4 +83,25 @@ public class Address {
                 ", country='" + country + '\'' +
                 '}';
     }
+
+    public String getAddressString(){
+        String vAddress = "";
+
+        if(addressLine1 != null){
+            vAddress = addressLine1 + ",";
+        }
+        if(addressLine2 != null){
+            vAddress = vAddress + addressLine2 + ",";
+        }
+        if(city != null){
+            vAddress = vAddress + city + ",";
+        }
+        if(state != null){
+            vAddress = vAddress + state + " ";
+        }
+        if(zip != null){
+            vAddress = vAddress + zip;
+        }
+        return vAddress;
+    }
 }
